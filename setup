@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# cstack setup script
+# Installs cstack agents, prompts, and copilot instructions into your project or globally.
+
+CSTACK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOCAL=false
+
+usage() {
+  echo "Usage: ./setup [--local]"
+  echo ""
+  echo "  --local    Install into current project (.github/)"
+  echo "             Default: install globally (~/.copilot/skills/cstack)"
+  exit 0
+}
+
+for arg in "$@"; do
+  case $arg in
+    --local) LOCAL=true ;;
+    --help|-h) usage ;;
+  esac
+done
+
+if [ "$LOCAL" = true ]; then
+  TARGET_DIR="$(pwd)/.github"
+  echo "📦 Installing cstack locally into $(pwd)/.github/"
+else
+  TARGET_DIR="$HOME/.copilot/skills/cstack"
+  echo "📦 Installing cstack globally into $TARGET_DIR"
+fi
+
+# Create directories
+mkdir -p "$TARGET_DIR/agents"
+mkdir -p "$TARGET_DIR/prompts"
+mkdir -p "$TARGET_DIR/skills"
+
+# Copy agents
+echo "→ Copying agents..."
+cp -r "$CSTACK_DIR/agents/"*.agent.md "$TARGET_DIR/agents/"
+
+# Copy skills
+echo "→ Copying skills..."
+cp -r "$CSTACK_DIR/skills/"* "$TARGET_DIR/skills/"
+
+# Copy prompts (if any exist)
+if [ -d "$CSTACK_DIR/prompts" ] && [ "$(ls -A "$CSTACK_DIR/prompts" 2>/dev/null)" ]; then
+  echo "→ Copying prompts..."
+  cp -r "$CSTACK_DIR/prompts/"* "$TARGET_DIR/prompts/"
+fi
+
+# Optionally append cstack block to copilot-instructions.md
+INSTRUCTIONS_FILE="$TARGET_DIR/copilot-instructions.md"
+CSTACK_BLOCK="$CSTACK_DIR/.github/copilot-instructions.md"
+
+if [ -f "$CSTACK_BLOCK" ]; then
+  if [ -f "$INSTRUCTIONS_FILE" ]; then
+    if grep -q "cstack" "$INSTRUCTIONS_FILE" 2>/dev/null; then
+      echo "→ copilot-instructions.md already contains cstack block, skipping."
+    else
+      echo "→ Appending cstack block to copilot-instructions.md..."
+      echo "" >> "$INSTRUCTIONS_FILE"
+      cat "$CSTACK_BLOCK" >> "$INSTRUCTIONS_FILE"
+    fi
+  else
+    echo "→ Creating copilot-instructions.md..."
+    cp "$CSTACK_BLOCK" "$INSTRUCTIONS_FILE"
+  fi
+fi
+
+echo ""
+echo "✅ cstack installed successfully!"
+echo ""
+echo "Available skills:"
+echo "  /plan        Generate implementation plan"
+echo "  /review      Staff-level code review"
+echo "  /qa          Run tests and write coverage"
+echo "  /ship        Commit and open PR"
+echo "  /investigate Systematic root-cause debugging"
+echo ""
+echo "Available agents:"
+echo "  @planner     Read-only planning"
+echo "  @reviewer    Code review (reports only)"
+echo "  @implementer Full-edit implementation"
+echo "  @qa          QA and test coverage"
+echo ""
+echo "Workflow: /plan → [implement] → /review → /qa → /ship"

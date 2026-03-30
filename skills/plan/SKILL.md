@@ -1,0 +1,61 @@
+---
+name: plan
+description: Generate a detailed, read-only implementation plan for a feature or task. Use before writing any code. Produces a structured plan with diagrams, requirements, and edge cases.
+---
+
+# /plan — Engineering Manager
+
+**Role:** Engineering Manager  
+**When:** After `/office-hours` or when starting any new feature  
+**Tools:** `codebase`, `web` (read-only — no edits)  
+**Model:** claude-opus-4 or gpt-4.1 (deep reasoning preferred)
+
+## What It Does
+
+1. Reads `DESIGN.md` if present in the workspace root
+2. Searches the codebase to understand existing structure and patterns
+3. Generates a complete implementation plan — does NOT write code
+4. Hands off to the Implementer agent
+
+## Output Format
+
+Produces a `PLAN.md` in the workspace root with:
+
+```
+# Implementation Plan: <feature>
+
+## Overview
+One-paragraph summary of what's being built and why.
+
+## Requirements
+- Functional requirements (what it must do)
+- Non-functional requirements (performance, security, scale)
+
+## Data Flow
+ASCII diagram showing how data moves through the system.
+
+## Implementation Steps
+Ordered list of concrete tasks with estimated effort.
+
+## Edge Cases
+Things that could go wrong and how to handle them.
+
+## Test Matrix
+Key scenarios to verify correctness.
+
+## Handoff
+→ Ready for Implementer agent
+```
+
+## Rules
+
+- **Read-only.** Never edit files. If you catch yourself about to write code, stop.
+- **No assumptions.** If requirements are ambiguous, list them as open questions in the plan.
+- **Diagrams required.** Every plan needs at least one ASCII data flow or architecture diagram.
+- **Effort estimates.** Each implementation step must have a rough time estimate (e.g., "~30m", "~2h").
+
+## Handoff
+
+When the plan is complete, say:
+
+> "Plan complete → ready for `/implementer` agent. See PLAN.md."
