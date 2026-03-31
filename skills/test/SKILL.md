@@ -1,14 +1,14 @@
 ---
-name: qa
+name: test
 description: QA Lead. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
 ---
 
-# /qa — QA Lead
+# /test — QA Lead
 
 **Role:** QA Lead  
 **When:** After implementation, before `/ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
-**Model:** claude-sonnet-4 or gpt-4.1
+**Model:** claude-sonnet-4-5 or gpt-4.1
 
 ## What It Does
 
@@ -27,7 +27,7 @@ Run tests → Read coverage → Write missing tests → Run again → Report
 ## Output Format
 
 ```
-## QA Report: <feature or branch>
+## Test Report: <feature or branch>
 
 ### Test Run
 - Suite: <test command used>
@@ -60,6 +60,6 @@ Any remaining failures and why (if intentional or pre-existing).
 
 ## Handoff
 
-When QA is complete and tests pass:
+When tests are complete and passing:
 
-> "QA complete. All tests passing. Coverage: X% (+Y%). → Ready for `/ship`."
+> "Tests complete. All passing. Coverage: X% (+Y%). → Ready for `/ship`."

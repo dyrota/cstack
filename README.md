@@ -1,8 +1,6 @@
 # cstack
 
-> gstack is to Claude Code what cstack is to GitHub Copilot in VS Code.
-
-A skill pack that turns GitHub Copilot into a virtual engineering team. Opinionated slash commands for every phase of a sprint — plan, review, QA, ship, and reflect — built on VS Code's [Agent Skills](https://agentskills.io) open standard.
+A skill pack that turns GitHub Copilot into a virtual engineering team. Opinionated slash commands for every phase of a sprint — plan, review, test, debug, and ship — built on VS Code's [Agent Skills](https://agentskills.io) open standard.
 
 ## Quick Start
 
@@ -20,21 +18,30 @@ cd .github/skills/cstack && ./setup --local
 
 | Command | Role | What it does |
 |---|---|---|
-| `/office-hours` | YC Office Hours | Reframe the problem before writing code |
 | `/plan` | Eng Manager | Read-only implementation plan with diagrams |
 | `/review` | Staff Engineer | Find production bugs before they ship |
-| `/qa` | QA Lead | Run tests, find gaps, write missing coverage |
+| `/test` | QA Lead | Run tests, find gaps, write missing coverage |
 | `/ship` | Release Engineer | Sync, test, commit, open PR |
-| `/investigate` | Debugger | Systematic root-cause debugging |
-| `/document` | Tech Writer | Update docs to match what shipped |
-| `/retro` | Eng Manager | Weekly shipping retrospective |
-| `/cso` | Security Officer | OWASP + STRIDE audit |
+| `/debug` | Debugger | Systematic root-cause debugging |
 
 ## Workflow
 
 ```
-/office-hours → /plan → [implement] → /review → /qa → /ship → /document
+/plan → [implement] → /review → /test → /ship
+                                          ↑
+                               /debug anytime
 ```
+
+## Post-MVP Skills
+
+These are planned but not yet implemented:
+
+| Command | Purpose |
+|---|---|
+| `/think` | Reframe the problem before writing code (forcing questions, 3 approaches) |
+| `/audit` | Security review: OWASP Top 10 + STRIDE threat model |
+| `/retro` | Weekly retrospective: git log summary, shipping streaks, stale branches |
+| `/document` | Update README, ARCHITECTURE.md, and inline docs to match what shipped |
 
 ## Why
 

@@ -1,15 +1,12 @@
 # cstack — Specification
 
-> A skill pack for GitHub Copilot in VS Code, inspired by [gstack](https://github.com/garrytan/gstack).
-> gstack is to Claude Code what cstack is to GitHub Copilot + VS Code.
+A skill pack for GitHub Copilot in VS Code. Turns Copilot from a general-purpose autocomplete into a virtual engineering team with specialized roles.
 
 ---
 
 ## What is cstack?
 
-cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**, and **Prompt Files** for GitHub Copilot in VS Code. It turns Copilot from a general-purpose autocomplete into a virtual engineering team with specialized roles.
-
-The goal: install cstack once, and gain `/plan`, `/review`, `/qa`, `/ship`, and more — all wired to the right Copilot tools, models, and handoffs.
+cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**, and **Prompt Files** for GitHub Copilot in VS Code. Install it once and gain `/plan`, `/review`, `/test`, `/ship`, `/debug`, and more — all wired to the right Copilot tools, models, and handoffs.
 
 ---
 
@@ -17,8 +14,8 @@ The goal: install cstack once, and gain `/plan`, `/review`, `/qa`, `/ship`, and 
 
 1. **Markdown-first.** Everything is a `.agent.md`, `SKILL.md`, or `.prompt.md`. No compiled binaries, no build step required.
 2. **Portable.** Skills follow the [Agent Skills open standard](https://agentskills.io) and work across VS Code Copilot, Copilot CLI, and the Copilot coding agent.
-3. **Opinionated defaults, easy overrides.** Each skill ships with sensible defaults. Users can fork and customize without touching the core.
-4. **Think → Plan → Build → Review → Test → Ship → Reflect.** Skills map to sprint phases and feed into each other.
+3. **Opinionated defaults, easy overrides.** Each skill ships with sensible defaults. Fork and customize without touching the core.
+4. **Think → Plan → Build → Review → Test → Ship.** Skills map to sprint phases and feed into each other.
 5. **GitHub Copilot-native.** Uses Copilot's built-in tools (`codebase`, `edit`, `web`, `terminal`, etc.) — no MCP dependency required (MCP is opt-in).
 
 ---
@@ -33,21 +30,16 @@ cstack/
 ├── .github/
 │   └── copilot-instructions.md    ← cstack meta-instructions
 ├── skills/                        ← Agent Skills (SKILL.md standard)
-│   ├── office-hours/              ← Start here. Reframe the problem.
 │   ├── plan/                      ← Generate implementation plan (read-only)
 │   ├── review/                    ← Staff-level code review
-│   ├── qa/                        ← QA with real terminal + test runner
+│   ├── test/                      ← QA with real terminal + test runner
 │   ├── ship/                      ← Run tests, commit, open PR
-│   ├── retro/                     ← Weekly retrospective
-│   ├── document/                  ← Update docs to match what shipped
-│   ├── investigate/               ← Systematic debugging
-│   └── cso/                       ← Security audit (OWASP + STRIDE)
+│   └── debug/                     ← Systematic root-cause debugging
 ├── agents/                        ← Custom Agents (.agent.md)
 │   ├── planner.agent.md           ← Read-only planning persona
 │   ├── reviewer.agent.md          ← Code review persona
 │   ├── implementer.agent.md       ← Full-edit implementation persona
-│   ├── qa.agent.md                ← QA persona with terminal access
-│   └── security.agent.md          ← Security-only persona
+│   └── qa.agent.md                ← QA persona with terminal access
 └── prompts/                       ← Reusable prompt files (.prompt.md)
     ├── pr-description.prompt.md
     ├── commit-message.prompt.md
@@ -58,50 +50,35 @@ cstack/
 
 ## Skills
 
-### `/office-hours`
-**Role:** YC-style office hours facilitator  
-**When:** Start of any new feature or project  
-**What it does:**
-- Asks 6 forcing questions to challenge framing, scope, and assumptions
-- Pushes back on feature requests by surfacing the underlying pain
-- Generates 3 implementation approaches with effort estimates
-- Produces a `DESIGN.md` that feeds downstream skills
-
-**Tools:** `web/fetch`, `search/codebase`  
-**Model:** Claude Sonnet or GPT-5.2 (copilot)
-
----
-
 ### `/plan`
 **Role:** Engineering Manager  
-**When:** After `/office-hours` or when starting a feature  
+**When:** Before starting any new feature or task  
 **What it does:**
 - Reads `DESIGN.md` if present
 - Generates implementation plan with: overview, requirements, data flow diagrams (ASCII), edge cases, test matrix
 - Does NOT make code edits (read-only tools only)
-- Handoff → `/implementer` agent
+- Handoff → @implementer agent
 
-**Tools:** `search/codebase`, `search/usages`, `web/fetch`  
-**Model:** Claude Opus or GPT-5.2  
-**Handoffs:** → Implementer agent
+**Tools:** `codebase`, `usages`, `web`  
+**Model:** claude-opus-4-5 or gpt-4.1 (reasoning model preferred)
 
 ---
 
 ### `/review`
 **Role:** Staff Engineer  
-**When:** Before any PR or after feature branch is done  
+**When:** After a feature branch is done, before PR  
 **What it does:**
 - Reviews diff vs main for logic bugs, edge cases, missing error handling
 - Auto-flags issues with severity (CRITICAL / WARN / NOTE)
 - Does NOT auto-fix — reports only, developer approves
-- Generates a review summary
+- Handoff → `/test`
 
-**Tools:** `search/codebase`, `search/usages`, `read/terminalLastCommand`  
-**Model:** Claude Sonnet or GPT-5.2
+**Tools:** `codebase`, `usages`  
+**Model:** claude-sonnet-4-5 or gpt-4.1
 
 ---
 
-### `/qa`
+### `/test`
 **Role:** QA Lead  
 **When:** After implementation, before ship  
 **What it does:**
@@ -109,15 +86,16 @@ cstack/
 - Identifies untested paths from coverage report
 - Writes missing tests
 - Verifies fixes
+- Handoff → `/ship`
 
-**Tools:** `terminal`, `edit`, `search/codebase`  
-**Model:** GPT-5.2 or Claude Sonnet
+**Tools:** `terminal`, `edit`, `codebase`  
+**Model:** claude-sonnet-4-5 or gpt-4.1
 
 ---
 
 ### `/ship`
 **Role:** Release Engineer  
-**When:** When feature is done and reviewed  
+**When:** Feature is done, reviewed, and tested  
 **What it does:**
 - Syncs with main
 - Runs tests (fails if tests fail)
@@ -125,38 +103,12 @@ cstack/
 - Commits with conventional commit message
 - Opens GitHub PR with auto-generated description
 
-**Tools:** `terminal`, `edit`, `github`  
-**Model:** GPT-5.2
+**Tools:** `terminal`, `github`  
+**Model:** gpt-4.1 or claude-sonnet-4-5
 
 ---
 
-### `/retro`
-**Role:** Engineering Manager  
-**When:** Weekly  
-**What it does:**
-- Reads recent git log and PR history
-- Summarizes: commits, lines changed, test health, open PRs
-- Identifies shipping streaks, stale branches, coverage trends
-
-**Tools:** `terminal`, `search/codebase`  
-**Model:** GPT-4o or Haiku (fast/cheap)
-
----
-
-### `/document`
-**Role:** Technical Writer  
-**When:** After `/ship`  
-**What it does:**
-- Diffs what changed vs current docs
-- Updates README, ARCHITECTURE.md, and any stale inline docs
-- Commits doc changes
-
-**Tools:** `edit`, `search/codebase`, `terminal`  
-**Model:** GPT-5.2
-
----
-
-### `/investigate`
+### `/debug`
 **Role:** Debugger  
 **When:** Facing a bug with unknown root cause  
 **What it does:**
@@ -165,47 +117,54 @@ cstack/
 - Stops after 3 failed fix attempts and escalates
 - Iron Law: no fix without root cause
 
-**Tools:** `search/codebase`, `search/usages`, `terminal`, `read/terminalLastCommand`  
-**Model:** Claude Opus (deep reasoning)
+**Tools:** `codebase`, `usages`, `terminal`  
+**Model:** claude-opus-4-5 (deep reasoning required)
 
 ---
 
-### `/cso`
-**Role:** Chief Security Officer  
-**When:** Before any release, or on demand  
-**What it does:**
-- OWASP Top 10 scan
-- STRIDE threat model
-- Confidence gate: only surfaces 8/10+ confidence findings
-- Each finding includes a concrete exploit scenario
-- Zero noise policy: false-positive exclusion list
+## Post-MVP Skills
 
-**Tools:** `search/codebase`, `web/fetch`  
-**Model:** Claude Opus
+These are planned and designed, but not yet implemented:
+
+### `/think`
+**Role:** Facilitator  
+**Purpose:** Reframe the problem before writing code. Asks 6 forcing questions, pushes back on feature requests, generates 3 implementation approaches with effort estimates, produces a `DESIGN.md`.  
+**Model:** claude-opus-4-5
+
+### `/audit`
+**Role:** Chief Security Officer  
+**Purpose:** OWASP Top 10 scan + STRIDE threat model. Confidence gate: only surfaces 8/10+ findings. Each finding includes a concrete exploit scenario. Zero noise policy.  
+**Model:** claude-opus-4-5
+
+### `/retro`
+**Role:** Engineering Manager  
+**Purpose:** Weekly retrospective. Reads recent git log and PR history. Summarizes: commits, lines changed, test health, open PRs. Identifies shipping streaks and stale branches.  
+**Model:** gpt-4.1 or claude-haiku (fast/cheap)
+
+### `/document`
+**Role:** Technical Writer  
+**Purpose:** Diffs what changed vs current docs. Updates README, ARCHITECTURE.md, and stale inline docs. Commits doc changes.  
+**Model:** gpt-4.1
 
 ---
 
 ## Custom Agents
 
 ### `planner.agent.md`
-Read-only planning persona. Tools: `web/fetch`, `search/codebase`, `search/usages`.  
-Handoffs → implementer.
+Read-only planning persona. Tools: `web`, `codebase`, `usages`.  
+Handoffs → @implementer.
 
 ### `reviewer.agent.md`
-Code review persona. Tools: `search/codebase`, `search/usages`.  
-No edit access. Handoffs → implementer or qa.
+Code review persona. Tools: `codebase`, `usages`.  
+No edit access. Handoffs → @implementer or @qa.
 
 ### `implementer.agent.md`
-Full edit persona. Tools: `edit`, `terminal`, `search/codebase`.  
-Handoffs → reviewer, qa.
+Full edit persona. Tools: `edit`, `terminal`, `codebase`.  
+Handoffs → @reviewer, @qa.
 
 ### `qa.agent.md`
-QA persona. Tools: `terminal`, `edit`, `search/codebase`.  
-Handoffs → ship.
-
-### `security.agent.md`
-Security-only. Tools: `search/codebase`, `web/fetch`.  
-No edits. Reports only.
+QA persona. Tools: `terminal`, `edit`, `codebase`.  
+Handoffs → `/ship`.
 
 ---
 
@@ -230,17 +189,16 @@ The `setup` script:
 
 ---
 
-## Workflow Example
+## Workflow
 
 ```
-/office-hours         ← reframe the problem
 /plan                 ← generate implementation plan
                       ← [implement via Copilot agent mode]
 /review               ← staff engineer review
-/qa                   ← run tests, fix gaps
+/test                 ← run tests, fix gaps
 /ship                 ← commit + open PR
-/document             ← update docs
-/retro                ← weekly reflection
+
+/debug                ← anytime a bug needs root-cause analysis
 ```
 
 ---
@@ -257,23 +215,23 @@ The `setup` script:
 
 ## MVP Scope (v0.1)
 
-- [ ] `skills/plan/SKILL.md`
-- [ ] `skills/review/SKILL.md`
-- [ ] `skills/qa/SKILL.md`
-- [ ] `skills/ship/SKILL.md`
-- [ ] `skills/investigate/SKILL.md`
-- [ ] `agents/planner.agent.md`
-- [ ] `agents/reviewer.agent.md`
-- [ ] `agents/implementer.agent.md`
-- [ ] `agents/qa.agent.md`
-- [ ] `setup` script
-- [ ] `README.md`
+- [x] `skills/plan/SKILL.md`
+- [x] `skills/review/SKILL.md`
+- [x] `skills/test/SKILL.md`
+- [x] `skills/ship/SKILL.md`
+- [x] `skills/debug/SKILL.md`
+- [x] `agents/planner.agent.md`
+- [x] `agents/reviewer.agent.md`
+- [x] `agents/implementer.agent.md`
+- [x] `agents/qa.agent.md`
+- [x] `setup` script
+- [x] `README.md`
 - [ ] GitHub repo public at `dyrota/cstack`
 
 ## Post-MVP
 
-- [ ] `skills/office-hours/SKILL.md`
-- [ ] `skills/cso/SKILL.md`
+- [ ] `skills/think/SKILL.md`
+- [ ] `skills/audit/SKILL.md`
 - [ ] `skills/retro/SKILL.md`
 - [ ] `skills/document/SKILL.md`
 - [ ] `agents/security.agent.md`

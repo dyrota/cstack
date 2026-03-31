@@ -1,14 +1,14 @@
 ---
 name: ship
-description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and QA'd.
+description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and tested.
 ---
 
 # /ship — Release Engineer
 
 **Role:** Release Engineer  
-**When:** Feature is done, reviewed, and QA'd  
+**When:** Feature is done, reviewed, and tested  
 **Tools:** `terminal`, `github`  
-**Model:** gpt-4.1 or claude-sonnet-4
+**Model:** gpt-4.1 or claude-sonnet-4-5
 
 ## What It Does
 
@@ -45,7 +45,7 @@ The problem this solves or the value it adds.
 Key implementation decisions and trade-offs.
 
 ## Testing
-How this was tested. Link to QA report if available.
+How this was tested. Link to `/test` report if available.
 
 ## Checklist
 - [ ] Tests pass
@@ -66,4 +66,4 @@ How this was tested. Link to QA report if available.
 
 After PR is opened:
 
-> "PR opened: <URL>. → Run `/document` to update docs if needed."
+> "PR opened: <URL>. Done."

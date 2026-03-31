@@ -8,7 +8,7 @@ description: Staff-level code review. Finds production bugs, logic errors, edge 
 **Role:** Staff Engineer  
 **When:** Before any PR, or after a feature branch is complete  
 **Tools:** `codebase`, `usages` (read-only — no edits)  
-**Model:** claude-sonnet-4 or gpt-4.1
+**Model:** claude-sonnet-4-5 or gpt-4.1
 
 ## What It Does
 
@@ -61,4 +61,4 @@ Suggestion: What to do instead (but do not edit the file).
 
 When review is complete:
 
-> "Review complete. X CRITICAL, Y WARN, Z NOTE. → `/qa` when fixes are applied."
+> "Review complete. X CRITICAL, Y WARN, Z NOTE. → `/test` when fixes are applied."

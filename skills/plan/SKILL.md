@@ -6,9 +6,9 @@ description: Generate a detailed, read-only implementation plan for a feature or
 # /plan — Engineering Manager
 
 **Role:** Engineering Manager  
-**When:** After `/office-hours` or when starting any new feature  
+**When:** Before starting any new feature or task  
 **Tools:** `codebase`, `web` (read-only — no edits)  
-**Model:** claude-opus-4 or gpt-4.1 (deep reasoning preferred)
+**Model:** claude-opus-4-5 or gpt-4.1 (reasoning model preferred)
 
 ## What It Does
 
@@ -58,4 +58,4 @@ Key scenarios to verify correctness.
 
 When the plan is complete, say:
 
-> "Plan complete → ready for `/implementer` agent. See PLAN.md."
+> "Plan complete → ready for @implementer. See PLAN.md."

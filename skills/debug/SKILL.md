@@ -1,14 +1,14 @@
 ---
-name: investigate
+name: debug
 description: Systematic debugger. Forces root-cause analysis before any fix. Traces data flow, surfaces hypotheses, tests each one. Never fixes without understanding why.
 ---
 
-# /investigate — Debugger
+# /debug — Debugger
 
 **Role:** Systematic Debugger  
 **When:** Facing a bug with unknown root cause  
 **Tools:** `codebase`, `usages`, `terminal`  
-**Model:** claude-opus-4 (deep reasoning required)
+**Model:** claude-opus-4-5 (deep reasoning required)
 
 ## The Iron Law
 
@@ -56,7 +56,7 @@ If you've tried 3 different fixes and the bug persists, **stop and escalate**:
 ## Output Format
 
 ```
-## Investigation: <bug description>
+## Debug: <bug description>
 
 ### Observation
 What's happening and when.
