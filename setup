@@ -3,6 +3,10 @@ set -euo pipefail
 
 # cstack setup script
 # Installs cstack agents, prompts, and copilot instructions into your project or globally.
+#
+# VS Code skill/agent discovery paths:
+#   Project-local:  .agents/skills/  and  .github/agents/
+#   Global:         ~/.vscode/agents/skills/  and  ~/.github/agents/
 
 CSTACK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOCAL=false
@@ -10,8 +14,8 @@ LOCAL=false
 usage() {
   echo "Usage: ./setup [--local]"
   echo ""
-  echo "  --local    Install into current project (.github/)"
-  echo "             Default: install globally (~/.copilot/skills/cstack)"
+  echo "  --local    Install into current project (.agents/skills/ and .github/agents/)"
+  echo "             Default: install globally (~/.vscode/agents/skills/ and ~/.github/agents/)"
   exit 0
 }
 
@@ -23,34 +27,43 @@ for arg in "$@"; do
 done
 
 if [ "$LOCAL" = true ]; then
-  TARGET_DIR="$(pwd)/.github"
-  echo "📦 Installing cstack locally into $(pwd)/.github/"
+  SKILLS_DIR="$(pwd)/.agents/skills"
+  AGENTS_DIR="$(pwd)/.github/agents"
+  PROMPTS_DIR="$(pwd)/.github/prompts"
+  INSTRUCTIONS_FILE="$(pwd)/.github/copilot-instructions.md"
+  echo "📦 Installing cstack locally into $(pwd)/"
 else
-  TARGET_DIR="$HOME/.copilot/skills/cstack"
-  echo "📦 Installing cstack globally into $TARGET_DIR"
+  SKILLS_DIR="$HOME/.vscode/agents/skills"
+  AGENTS_DIR="$HOME/.github/agents"
+  PROMPTS_DIR="$HOME/.github/prompts"
+  INSTRUCTIONS_FILE="$HOME/.github/copilot-instructions.md"
+  echo "📦 Installing cstack globally into ~/.vscode/agents/skills/ and ~/.github/"
 fi
 
 # Create directories
-mkdir -p "$TARGET_DIR/agents"
-mkdir -p "$TARGET_DIR/prompts"
-mkdir -p "$TARGET_DIR/skills"
+mkdir -p "$SKILLS_DIR"
+mkdir -p "$AGENTS_DIR"
+mkdir -p "$PROMPTS_DIR"
+
+# Copy skills (each skill is a directory with SKILL.md)
+echo "→ Copying skills..."
+for skill_dir in "$CSTACK_DIR/skills"/*/; do
+  skill_name="$(basename "$skill_dir")"
+  mkdir -p "$SKILLS_DIR/$skill_name"
+  cp -r "$skill_dir"* "$SKILLS_DIR/$skill_name/"
+done
 
 # Copy agents
 echo "→ Copying agents..."
-cp -r "$CSTACK_DIR/agents/"*.agent.md "$TARGET_DIR/agents/"
-
-# Copy skills
-echo "→ Copying skills..."
-cp -r "$CSTACK_DIR/skills/"* "$TARGET_DIR/skills/"
+cp -r "$CSTACK_DIR/agents/"*.agent.md "$AGENTS_DIR/"
 
 # Copy prompts (if any exist)
 if [ -d "$CSTACK_DIR/prompts" ] && [ "$(ls -A "$CSTACK_DIR/prompts" 2>/dev/null)" ]; then
   echo "→ Copying prompts..."
-  cp -r "$CSTACK_DIR/prompts/"* "$TARGET_DIR/prompts/"
+  cp -r "$CSTACK_DIR/prompts/"* "$PROMPTS_DIR/"
 fi
 
 # Optionally append cstack block to copilot-instructions.md
-INSTRUCTIONS_FILE="$TARGET_DIR/copilot-instructions.md"
 CSTACK_BLOCK="$CSTACK_DIR/.github/copilot-instructions.md"
 
 if [ -f "$CSTACK_BLOCK" ]; then
@@ -64,12 +77,16 @@ if [ -f "$CSTACK_BLOCK" ]; then
     fi
   else
     echo "→ Creating copilot-instructions.md..."
+    mkdir -p "$(dirname "$INSTRUCTIONS_FILE")"
     cp "$CSTACK_BLOCK" "$INSTRUCTIONS_FILE"
   fi
 fi
 
 echo ""
 echo "✅ cstack installed successfully!"
+echo ""
+echo "Skills installed to: $SKILLS_DIR"
+echo "Agents installed to: $AGENTS_DIR"
 echo ""
 echo "Available skills:"
 echo "  /plan        Generate implementation plan"
@@ -84,4 +101,4 @@ echo "  @reviewer    Code review (reports only)"
 echo "  @implementer Full-edit implementation"
 echo "  @qa          QA and test coverage"
 echo ""
-echo "Workflow: /plan → [implement] → /review → /qa → /ship"
+echo "Workflow: /plan → [implement] → /review → /test → /ship"

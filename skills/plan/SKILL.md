@@ -1,6 +1,7 @@
 ---
 name: plan
 description: Generate a detailed, read-only implementation plan for a feature or task. Use before writing any code. Produces a structured plan with diagrams, requirements, and edge cases.
+allowed-tools: codebase web usages
 ---
 
 # /plan — Engineering Manager
@@ -8,7 +9,7 @@ description: Generate a detailed, read-only implementation plan for a feature or
 **Role:** Engineering Manager  
 **When:** Before starting any new feature or task  
 **Tools:** `codebase`, `web` (read-only — no edits)  
-**Model:** claude-opus-4-5 or gpt-4.1 (reasoning model preferred)
+**Model:** claude-opus-4-6 or gpt-4.1 (reasoning model preferred)
 
 ## What It Does
 
@@ -53,6 +54,7 @@ Key scenarios to verify correctness.
 - **No assumptions.** If requirements are ambiguous, list them as open questions in the plan.
 - **Diagrams required.** Every plan needs at least one ASCII data flow or architecture diagram.
 - **Effort estimates.** Each implementation step must have a rough time estimate (e.g., "~30m", "~2h").
+- **Check for existing plan.** If `PLAN.md` already exists in the workspace root, read it first and note what's changing. Do not silently overwrite — acknowledge the previous plan and explain what's different.
 
 ## Handoff
 

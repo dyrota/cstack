@@ -1,6 +1,7 @@
 ---
 name: debug
 description: Systematic debugger. Forces root-cause analysis before any fix. Traces data flow, surfaces hypotheses, tests each one. Never fixes without understanding why.
+allowed-tools: codebase usages terminal
 ---
 
 # /debug — Debugger
@@ -8,7 +9,7 @@ description: Systematic debugger. Forces root-cause analysis before any fix. Tra
 **Role:** Systematic Debugger  
 **When:** Facing a bug with unknown root cause  
 **Tools:** `codebase`, `usages`, `terminal`  
-**Model:** claude-opus-4-5 (deep reasoning required)
+**Model:** claude-opus-4-6 (deep reasoning required)
 
 ## The Iron Law
 

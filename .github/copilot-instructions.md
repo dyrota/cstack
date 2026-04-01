@@ -10,9 +10,9 @@ Use these slash commands in Copilot Chat:
 |---|---|---|
 | `/plan` | Engineering Manager | Before writing code |
 | `/review` | Staff Engineer | Before any PR |
-| `/qa` | QA Lead | After implementation |
+| `/test` | QA Lead | After implementation |
 | `/ship` | Release Engineer | When ready to merge |
-| `/investigate` | Debugger | When facing unknown bugs |
+| `/debug` | Debugger | When facing unknown bugs |
 
 ## Agents
 
@@ -28,13 +28,13 @@ Use these custom agents via `@agent-name` in Copilot Chat:
 ## Workflow
 
 ```
-/plan → [implement] → /review → /qa → /ship
+/plan → [implement] → /review → /test → /ship
 ```
 
 ## Rules
 
 - Run `/plan` before starting any non-trivial feature
 - Run `/review` before opening any PR
-- Run `/qa` before `/ship`
+- Run `/test` before `/ship`
 - `/ship` will abort if tests fail — don't try to sneak broken code past it
-- `/investigate` requires root cause before any fix (Iron Law)
+- `/debug` requires root cause before any fix (Iron Law)

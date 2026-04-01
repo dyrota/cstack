@@ -1,6 +1,7 @@
 ---
 name: test
 description: QA Lead. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
+allowed-tools: terminal edit codebase
 ---
 
 # /test — QA Lead
@@ -8,7 +9,7 @@ description: QA Lead. Runs the test suite, identifies untested code paths, write
 **Role:** QA Lead  
 **When:** After implementation, before `/ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
-**Model:** claude-sonnet-4-5 or gpt-4.1
+**Model:** claude-sonnet-4-6 or gpt-4.1
 
 ## What It Does
 

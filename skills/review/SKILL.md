@@ -1,6 +1,7 @@
 ---
 name: review
 description: Staff-level code review. Finds production bugs, logic errors, edge cases, and missing error handling before code ships. Reports only — does not auto-fix.
+allowed-tools: codebase usages
 ---
 
 # /review — Staff Engineer
@@ -8,7 +9,7 @@ description: Staff-level code review. Finds production bugs, logic errors, edge 
 **Role:** Staff Engineer  
 **When:** Before any PR, or after a feature branch is complete  
 **Tools:** `codebase`, `usages` (read-only — no edits)  
-**Model:** claude-sonnet-4-5 or gpt-4.1
+**Model:** claude-sonnet-4-6 or gpt-4.1
 
 ## What It Does
 

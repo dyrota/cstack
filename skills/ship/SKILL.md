@@ -1,6 +1,7 @@
 ---
 name: ship
 description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and tested.
+allowed-tools: terminal github
 ---
 
 # /ship — Release Engineer
@@ -8,7 +9,7 @@ description: Release Engineer. Syncs with main, runs tests, commits with a conve
 **Role:** Release Engineer  
 **When:** Feature is done, reviewed, and tested  
 **Tools:** `terminal`, `github`  
-**Model:** gpt-4.1 or claude-sonnet-4-5
+**Model:** gpt-4.1 or claude-sonnet-4-6
 
 ## What It Does
 
@@ -57,7 +58,7 @@ How this was tested. Link to `/test` report if available.
 ## Rules
 
 - **Tests must pass.** If the suite fails, stop and report. Do not ship broken code.
-- **Rebase, don't merge.** Always rebase onto main before shipping.
+- **Rebase, don't merge.** Always rebase onto main before shipping. Before rebasing, verify no merge commits exist on the branch: run `git log --merges origin/main..HEAD` — if any are found, abort and ask the developer to resolve them.
 - **Conventional commits only.** No "fix stuff" or "wip" commit messages.
 - **One PR per feature.** Don't bundle unrelated changes.
 - **Coverage gate.** Warn (but don't block) if coverage drops more than 2%.
