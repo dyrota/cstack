@@ -1,12 +1,12 @@
 ---
 name: test
-description: Test Engineer. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
+description: Tester. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
 allowed-tools: terminal edit codebase
 ---
 
-# /test — Test Engineer
+# /test — Tester
 
-**Role:** Test Engineer  
+**Role:** Tester  
 **When:** After implementation, before `/ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
 **Model (recommended):** claude-sonnet-4.6 or gpt-4.1
