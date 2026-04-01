@@ -1,5 +1,7 @@
 # cstack — Specification
 
+**version: 0.1.0**
+
 A skill pack for GitHub Copilot in VS Code. Turns Copilot from a general-purpose autocomplete into a virtual engineering team with specialized roles.
 
 ---
@@ -17,6 +19,14 @@ cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**
 3. **Opinionated defaults, easy overrides.** Each skill ships with sensible defaults. Fork and customize without touching the core.
 4. **Think → Plan → Build → Review → Test → Ship.** Skills map to sprint phases and feed into each other.
 5. **GitHub Copilot-native.** Uses Copilot's built-in tools (`codebase`, `edit`, `web`, `terminal`, etc.) — no MCP dependency required (MCP is opt-in).
+
+---
+
+## Skills vs Agents
+
+- **Skills** (`SKILL.md`) are slash commands that trigger a specific workflow. Run `/plan` to generate a plan, `/review` to do a code review, etc.
+- **Agents** (`.agent.md`) are personas that can be @mentioned for ongoing collaboration. Talk to `@planner` for planning help, `@reviewer` for review feedback, etc.
+- They're complementary: `/plan` runs the plan skill; `@planner` is the persona you work with during planning. Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 ---
 
@@ -60,7 +70,7 @@ cstack/
 - Handoff → @implementer agent
 
 **Tools:** `codebase`, `usages`, `web`  
-**Model:** claude-opus-4-5 or gpt-4.1 (reasoning model preferred)
+**Model (recommended):** claude-opus-4.6 or gpt-4.1 (reasoning model preferred)
 
 ---
 
@@ -74,7 +84,7 @@ cstack/
 - Handoff → `/test`
 
 **Tools:** `codebase`, `usages`  
-**Model:** claude-sonnet-4-5 or gpt-4.1
+**Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ---
 
@@ -89,7 +99,7 @@ cstack/
 - Handoff → `/ship`
 
 **Tools:** `terminal`, `edit`, `codebase`  
-**Model:** claude-sonnet-4-5 or gpt-4.1
+**Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ---
 
@@ -101,10 +111,10 @@ cstack/
 - Runs tests (fails if tests fail)
 - Audits test coverage delta
 - Commits with conventional commit message
-- Opens GitHub PR with auto-generated description
+- Opens GitHub PR via `gh pr create`
 
-**Tools:** `terminal`, `github`  
-**Model:** gpt-4.1 or claude-sonnet-4-5
+**Tools:** `terminal`  
+**Model (recommended):** gpt-4.1 or claude-sonnet-4.6
 
 ---
 
@@ -118,33 +128,35 @@ cstack/
 - Iron Law: no fix without root cause
 
 **Tools:** `codebase`, `usages`, `terminal`  
-**Model:** claude-opus-4-5 (deep reasoning required)
+**Model (recommended):** claude-opus-4.6 (deep reasoning recommended)
+
+---
+
+> ⚠️ **The following skills are post-MVP and not yet implemented.** They are included as a design roadmap only.
 
 ---
 
 ## Post-MVP Skills
 
-These are planned and designed, but not yet implemented:
-
 ### `/think`
 **Role:** Facilitator  
 **Purpose:** Reframe the problem before writing code. Asks 6 forcing questions, pushes back on feature requests, generates 3 implementation approaches with effort estimates, produces a `DESIGN.md`.  
-**Model:** claude-opus-4-5
+**Model (recommended):** claude-opus-4.6
 
 ### `/audit`
 **Role:** Chief Security Officer  
 **Purpose:** OWASP Top 10 scan + STRIDE threat model. Confidence gate: only surfaces 8/10+ findings. Each finding includes a concrete exploit scenario. Zero noise policy.  
-**Model:** claude-opus-4-5
+**Model (recommended):** claude-opus-4.6
 
 ### `/retro`
 **Role:** Engineering Manager  
 **Purpose:** Weekly retrospective. Reads recent git log and PR history. Summarizes: commits, lines changed, test health, open PRs. Identifies shipping streaks and stale branches.  
-**Model:** gpt-4.1 or claude-haiku (fast/cheap)
+**Model (recommended):** gpt-4.1 or claude-haiku (fast/cheap)
 
 ### `/document`
 **Role:** Technical Writer  
 **Purpose:** Diffs what changed vs current docs. Updates README, ARCHITECTURE.md, and stale inline docs. Commits doc changes.  
-**Model:** gpt-4.1
+**Model (recommended):** gpt-4.1
 
 ---
 
@@ -172,17 +184,23 @@ Handoffs → `/ship`.
 
 ### Install globally (personal skills)
 ```bash
-git clone --depth 1 https://github.com/dyrota/cstack.git ~/.copilot/skills/cstack
-cd ~/.copilot/skills/cstack && ./setup
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack && ./setup
 ```
+
+Skills are installed to `~/.vscode/agents/skills/`, agents to `~/.github/agents/`.
 
 ### Install to a project
 ```bash
-git clone --depth 1 https://github.com/dyrota/cstack.git .github/skills/cstack
-cd .github/skills/cstack && ./setup --local
+# From within your project directory
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack && ./setup --local
 ```
 
+Skills are installed to `<project-root>/.agents/skills/`, agents to `<project-root>/.github/agents/`.
+
 The `setup` script:
+- Copies skills to the skills directory
 - Copies agents to `.github/agents/`
 - Copies prompts to `.github/prompts/`
 - Optionally appends a cstack block to `.github/copilot-instructions.md`
@@ -224,6 +242,9 @@ The `setup` script:
 - [x] `agents/reviewer.agent.md`
 - [x] `agents/implementer.agent.md`
 - [x] `agents/qa.agent.md`
+- [x] `prompts/pr-description.prompt.md`
+- [x] `prompts/commit-message.prompt.md`
+- [x] `prompts/test-coverage.prompt.md`
 - [x] `setup` script
 - [x] `README.md`
 - [ ] GitHub repo public at `dyrota/cstack`
@@ -236,5 +257,4 @@ The `setup` script:
 - [ ] `skills/document/SKILL.md`
 - [ ] `agents/security.agent.md`
 - [ ] VS Code Marketplace extension (contributes skills via `chatSkills` contribution point)
-- [ ] `prompts/` directory with reusable prompt files
 - [ ] `/create-cstack` command that generates customization files with AI

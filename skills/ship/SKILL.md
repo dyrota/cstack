@@ -1,15 +1,17 @@
 ---
 name: ship
 description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and tested.
-allowed-tools: terminal github
+allowed-tools: terminal
 ---
 
 # /ship — Release Engineer
 
+> **Requires `gh` CLI** — run `gh auth login` if not already authenticated.
+
 **Role:** Release Engineer  
 **When:** Feature is done, reviewed, and tested  
-**Tools:** `terminal`, `github`  
-**Model:** gpt-4.1 or claude-sonnet-4-6
+**Tools:** `terminal`  
+**Model (recommended):** gpt-4.1 or claude-sonnet-4.6
 
 ## What It Does
 
@@ -17,7 +19,7 @@ allowed-tools: terminal github
 2. Runs the full test suite — **aborts if any tests fail**
 3. Audits test coverage delta vs main
 4. Commits staged changes with a conventional commit message
-5. Pushes branch and opens a GitHub PR with auto-generated description
+5. Pushes branch and opens a GitHub PR via `gh pr create` with auto-generated description
 
 ## Conventional Commit Format
 

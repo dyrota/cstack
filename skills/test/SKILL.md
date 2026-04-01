@@ -9,7 +9,7 @@ allowed-tools: terminal edit codebase
 **Role:** QA Lead  
 **When:** After implementation, before `/ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
-**Model:** claude-sonnet-4-6 or gpt-4.1
+**Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ## What It Does
 

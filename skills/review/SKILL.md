@@ -9,7 +9,7 @@ allowed-tools: codebase usages
 **Role:** Staff Engineer  
 **When:** Before any PR, or after a feature branch is complete  
 **Tools:** `codebase`, `usages` (read-only — no edits)  
-**Model:** claude-sonnet-4-6 or gpt-4.1
+**Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ## What It Does
 

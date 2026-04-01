@@ -9,7 +9,7 @@ allowed-tools: codebase usages terminal
 **Role:** Systematic Debugger  
 **When:** Facing a bug with unknown root cause  
 **Tools:** `codebase`, `usages`, `terminal`  
-**Model:** claude-opus-4-6 (deep reasoning required)
+**Model (recommended):** claude-opus-4.6 (deep reasoning recommended)
 
 ## The Iron Law
 

@@ -27,11 +27,28 @@ for arg in "$@"; do
 done
 
 if [ "$LOCAL" = true ]; then
-  SKILLS_DIR="$(pwd)/.agents/skills"
-  AGENTS_DIR="$(pwd)/.github/agents"
-  PROMPTS_DIR="$(pwd)/.github/prompts"
-  INSTRUCTIONS_FILE="$(pwd)/.github/copilot-instructions.md"
-  echo "📦 Installing cstack locally into $(pwd)/"
+  # Find the project root — the nearest .git repo that isn't cstack itself
+  PROJECT_ROOT=""
+  search_dir="$(pwd)"
+  while [ "$search_dir" != "/" ]; do
+    if [ -d "$search_dir/.git" ]; then
+      # Skip if this is the cstack repo itself
+      if [ "$search_dir" != "$CSTACK_DIR" ]; then
+        PROJECT_ROOT="$search_dir"
+        break
+      fi
+    fi
+    search_dir="$(dirname "$search_dir")"
+  done
+  if [ -z "$PROJECT_ROOT" ]; then
+    echo "⚠️  Could not find a parent git repo. Defaulting to two levels up from cstack."
+    PROJECT_ROOT="$(cd "$CSTACK_DIR/../.." && pwd)"
+  fi
+  SKILLS_DIR="$PROJECT_ROOT/.agents/skills"
+  AGENTS_DIR="$PROJECT_ROOT/.github/agents"
+  PROMPTS_DIR="$PROJECT_ROOT/.github/prompts"
+  INSTRUCTIONS_FILE="$PROJECT_ROOT/.github/copilot-instructions.md"
+  echo "📦 Installing cstack locally into $PROJECT_ROOT/"
 else
   SKILLS_DIR="$HOME/.vscode/agents/skills"
   AGENTS_DIR="$HOME/.github/agents"

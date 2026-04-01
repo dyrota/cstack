@@ -10,6 +10,8 @@ For the full skill reference, agent list, and workflow, see the [cstack README](
 /plan → [implement] → /review → /test → /ship
 ```
 
+Use `/skill` to run a phase. Use `@agent` to work with a persona.
+
 ## Rules
 
 - Run `/plan` before starting any non-trivial feature

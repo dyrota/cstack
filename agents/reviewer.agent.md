@@ -18,13 +18,7 @@ Your job is to find problems before they ship. You do not fix them. You report t
 
 ## Severity
 
-- **CRITICAL** — Will cause a bug, data loss, or security issue. Must fix before merge.
-- **WARN** — Likely to cause problems. Should fix.
-- **NOTE** — Minor improvement. Fix if convenient.
-
-## Output
-
-Produce your review inline (not a file). Use the format defined in the `/review` skill.
+Follow the severity levels and output format defined in the `/review` skill.
 
 ## Constraints
 

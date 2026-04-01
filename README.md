@@ -5,13 +5,19 @@ A skill pack that turns GitHub Copilot into a virtual engineering team. Opiniona
 ## Quick Start
 
 ```bash
-# Personal install (works across all projects)
-git clone --depth 1 https://github.com/dyrota/cstack.git ~/.vscode/agents/skills/cstack
-cd ~/.vscode/agents/skills/cstack && ./setup
+# Clone the repo anywhere
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack
 
-# Project install
-git clone --depth 1 https://github.com/dyrota/cstack.git .agents/skills/cstack
-cd .agents/skills/cstack && ./setup --local
+# Personal install (works across all projects)
+./setup
+# Skills → ~/.vscode/agents/skills/
+# Agents → ~/.github/agents/
+
+# OR: Project install (from within your project)
+./setup --local
+# Skills → <project-root>/.agents/skills/
+# Agents → <project-root>/.github/agents/
 ```
 
 ## Skills
@@ -31,6 +37,8 @@ cd .agents/skills/cstack && ./setup --local
                                           ↑
                                /debug anytime
 ```
+
+Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 ## Post-MVP Skills
 
