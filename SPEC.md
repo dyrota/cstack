@@ -40,16 +40,20 @@ cstack/
 ├── .github/
 │   └── copilot-instructions.md    ← cstack meta-instructions
 ├── skills/                        ← Agent Skills (SKILL.md standard)
-│   ├── plan/                      ← Generate implementation plan (read-only)
+│   ├── plan/                      ← Interactive implementation planning
 │   ├── review/                    ← Staff-level code review
 │   ├── test/                      ← QA with real terminal + test runner
 │   ├── ship/                      ← Run tests, commit, open PR
-│   └── debug/                     ← Systematic root-cause debugging
+│   ├── debug/                     ← Systematic root-cause debugging
+│   ├── checkpoint/                ← Save/resume working context
+│   ├── retro/                     ← Weekly retrospective from git history
+│   └── document/                  ← Sync docs after shipping
 ├── agents/                        ← Custom Agents (.agent.md)
 │   ├── planner.agent.md           ← Read-only planning persona
 │   ├── reviewer.agent.md          ← Code review persona
 │   ├── implementer.agent.md       ← Full-edit implementation persona
-│   └── qa.agent.md                ← QA persona with terminal access
+│   ├── qa.agent.md                ← QA persona with terminal access
+│   └── chronicler.agent.md       ← Session continuity persona
 └── prompts/                       ← Reusable prompt files (.prompt.md)
     ├── pr-description.prompt.md
     ├── commit-message.prompt.md
@@ -65,6 +69,9 @@ cstack/
 **When:** Before starting any new feature or task  
 **What it does:**
 - Reads `DESIGN.md` if present
+- Explores the codebase to understand current structure
+- **Asks up to 5 clarifying questions** if requirements are ambiguous (interactive mode)
+- If DESIGN.md exists and requirements are clear, skips questions and plans directly
 - Generates implementation plan with: overview, requirements, data flow diagrams (ASCII), edge cases, test matrix
 - Does NOT make code edits (read-only tools only)
 - Handoff → @implementer agent
@@ -132,6 +139,49 @@ cstack/
 
 ---
 
+---
+
+### `/checkpoint`
+**Role:** Staff Engineer  
+**When:** End of a work session, or start of a new one  
+**What it does:**
+- `/checkpoint save` — captures git state, decisions, and remaining work into `CHECKPOINT.md`
+- `/checkpoint resume` — reads checkpoint and briefs user on where they left off
+- `/checkpoint list` — shows if a checkpoint exists
+- Read-only on source files — only writes `CHECKPOINT.md`
+
+**Tools:** `codebase`, `terminal`, `edit`
+
+---
+
+### `/retro`
+**Role:** Engineering Manager  
+**When:** End of week or sprint  
+**What it does:**
+- Analyzes git history for the last N days (default 7)
+- Computes: commit count, LOC delta, active days, hotspots, commit type breakdown, shipping streak
+- Outputs tweetable summary + full retro report
+- Saves snapshot to `.context/retros/YYYY-MM-DD.md`
+
+**Tools:** `terminal`, `codebase`  
+**Model (recommended):** gpt-4.1 or claude-haiku (fast/cheap)
+
+---
+
+### `/document`
+**Role:** Technical Writer  
+**When:** After `/ship` — code is committed and PR is open  
+**What it does:**
+- Diffs what changed vs current docs
+- Auto-updates factual content (file paths, counts, tables, version numbers)
+- Never rewrites narrative or removes content
+- Commits doc changes with `docs: sync documentation for [feature]`
+
+**Tools:** `codebase`, `terminal`, `edit`  
+**Model (recommended):** gpt-4.1
+
+---
+
 > ⚠️ **The following skills are post-MVP and not yet implemented.** They are included as a design roadmap only.
 
 ---
@@ -147,16 +197,6 @@ cstack/
 **Role:** Chief Security Officer  
 **Purpose:** OWASP Top 10 scan + STRIDE threat model. Confidence gate: only surfaces 8/10+ findings. Each finding includes a concrete exploit scenario. Zero noise policy.  
 **Model (recommended):** claude-opus-4.6
-
-### `/retro`
-**Role:** Engineering Manager  
-**Purpose:** Weekly retrospective. Reads recent git log and PR history. Summarizes: commits, lines changed, test health, open PRs. Identifies shipping streaks and stale branches.  
-**Model (recommended):** gpt-4.1 or claude-haiku (fast/cheap)
-
-### `/document`
-**Role:** Technical Writer  
-**Purpose:** Diffs what changed vs current docs. Updates README, ARCHITECTURE.md, and stale inline docs. Commits doc changes.  
-**Model (recommended):** gpt-4.1
 
 ---
 
@@ -177,6 +217,10 @@ Handoffs → @reviewer, @qa.
 ### `qa.agent.md`
 QA persona. Tools: `terminal`, `edit`, `codebase`.  
 Handoffs → `/ship`.
+
+### `chronicler.agent.md`
+Session continuity persona. Tools: `codebase`, `terminal`, `edit`.  
+Saves and restores working context via `CHECKPOINT.md`.
 
 ---
 
@@ -233,15 +277,19 @@ The `setup` script:
 
 ## MVP Scope (v0.1)
 
-- [x] `skills/plan/SKILL.md`
+- [x] `skills/plan/SKILL.md` (now with interactive clarification)
 - [x] `skills/review/SKILL.md`
 - [x] `skills/test/SKILL.md`
 - [x] `skills/ship/SKILL.md`
 - [x] `skills/debug/SKILL.md`
+- [x] `skills/checkpoint/SKILL.md`
+- [x] `skills/retro/SKILL.md`
+- [x] `skills/document/SKILL.md`
 - [x] `agents/planner.agent.md`
 - [x] `agents/reviewer.agent.md`
 - [x] `agents/implementer.agent.md`
 - [x] `agents/qa.agent.md`
+- [x] `agents/chronicler.agent.md`
 - [x] `prompts/pr-description.prompt.md`
 - [x] `prompts/commit-message.prompt.md`
 - [x] `prompts/test-coverage.prompt.md`
@@ -253,8 +301,6 @@ The `setup` script:
 
 - [ ] `skills/think/SKILL.md`
 - [ ] `skills/audit/SKILL.md`
-- [ ] `skills/retro/SKILL.md`
-- [ ] `skills/document/SKILL.md`
 - [ ] `agents/security.agent.md`
 - [ ] VS Code Marketplace extension (contributes skills via `chatSkills` contribution point)
 - [ ] `/create-cstack` command that generates customization files with AI

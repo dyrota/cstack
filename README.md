@@ -24,11 +24,14 @@ cd cstack
 
 | Command | Role | What it does |
 |---|---|---|
-| `/plan` | Eng Manager | Read-only implementation plan with diagrams |
+| `/plan` | Eng Manager | Interactive implementation plan with diagrams |
 | `/review` | Staff Engineer | Find production bugs before they ship |
 | `/test` | Tester | Run tests, find gaps, write missing coverage |
 | `/ship` | Release Engineer | Sync, test, commit, open PR |
 | `/debug` | Debugger | Systematic root-cause debugging |
+| `/checkpoint` | Staff Engineer | Save and resume working context across sessions |
+| `/retro` | Eng Manager | Weekly retrospective from git history |
+| `/document` | Technical Writer | Sync docs after shipping |
 
 ## Workflow
 
@@ -36,6 +39,9 @@ cd cstack
 /plan → [implement] → /review → /test → /ship
                                           ↑
                                /debug anytime
+                        /checkpoint to save/resume
+                         /retro for weekly review
+                     /document to sync docs after ship
 ```
 
 Use `/skill` to run a phase. Use `@agent` to work with a persona.
@@ -48,8 +54,6 @@ These are **designed but not yet implemented** — invoking them will not work. 
 |---|---|
 | `/think` | Reframe the problem before writing code (forcing questions, 3 approaches) |
 | `/audit` | Security review: OWASP Top 10 + STRIDE threat model |
-| `/retro` | Weekly retrospective: git log summary, shipping streaks, stale branches |
-| `/document` | Update README, ARCHITECTURE.md, and inline docs to match what shipped |
 
 ## Why
 
