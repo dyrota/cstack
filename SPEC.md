@@ -169,7 +169,7 @@ cstack/
 ---
 
 ### `/document`
-**Role:** Technical Writer  
+**Role:** Documenter  
 **When:** After `/ship` — code is committed and PR is open  
 **What it does:**
 - Diffs what changed vs current docs

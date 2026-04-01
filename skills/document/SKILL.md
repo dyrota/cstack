@@ -4,9 +4,9 @@ description: Sync documentation after shipping. Reads the diff, updates factual 
 allowed-tools: codebase terminal edit
 ---
 
-# /document — Technical Writer
+# /document — Documenter
 
-**Role:** Technical Writer  
+**Role:** Documenter  
 **When:** After `/ship` — code is committed and PR is open  
 **Tools:** `codebase`, `terminal`, `edit`  
 **Model (recommended):** gpt-4.1

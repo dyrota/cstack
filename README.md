@@ -24,14 +24,14 @@ cd cstack
 
 | Command | Role | What it does |
 |---|---|---|
-| `/plan` | Eng Manager | Interactive implementation plan with diagrams |
+| `/plan` | Engineering Manager | Interactive implementation plan with diagrams |
 | `/review` | Staff Engineer | Find production bugs before they ship |
 | `/test` | Tester | Run tests, find gaps, write missing coverage |
 | `/ship` | Release Engineer | Sync, test, commit, open PR |
 | `/debug` | Debugger | Systematic root-cause debugging |
 | `/checkpoint` | Staff Engineer | Save and resume working context across sessions |
-| `/retro` | Eng Manager | Weekly retrospective from git history |
-| `/document` | Technical Writer | Sync docs after shipping |
+| `/retro` | Engineering Manager | Weekly retrospective from git history |
+| `/document` | Documenter | Sync docs after shipping |
 
 ## Workflow
 
