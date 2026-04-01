@@ -13,7 +13,9 @@ allowed-tools: terminal edit codebase
 
 ## What It Does
 
-1. Runs the existing test suite via terminal
+1. Detects the test framework: look for `package.json` scripts, `pytest.ini`, `go.mod`, `Makefile` test targets, etc.
+   - **If a framework is found:** run the existing suite via terminal
+   - **If no framework exists:** do not silently skip — report it, then scaffold a minimal test file for the most critical code path and ask the developer to confirm before writing more
 2. Reads coverage report to identify untested paths
 3. Writes missing tests for critical code paths
 4. Re-runs suite to verify all tests pass
@@ -53,6 +55,8 @@ Any remaining failures and why (if intentional or pre-existing).
 
 ## Rules
 
+- **Detect before running.** Identify the test framework first — don't blindly run `npm test` in a Python project.
+- **No framework? Say so.** If there's no test setup, report it clearly and scaffold minimally rather than doing nothing.
 - **Run before writing.** Always run the existing suite first — don't assume it's green.
 - **Write real tests.** No placeholder `it("should work")` stubs. Tests must assert behavior.
 - **Coverage over count.** 3 meaningful tests beat 30 trivial ones.

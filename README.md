@@ -6,12 +6,12 @@ A skill pack that turns GitHub Copilot into a virtual engineering team. Opiniona
 
 ```bash
 # Personal install (works across all projects)
-git clone --depth 1 https://github.com/dyrota/cstack.git ~/.copilot/skills/cstack
-cd ~/.copilot/skills/cstack && ./setup
+git clone --depth 1 https://github.com/dyrota/cstack.git ~/.vscode/agents/skills/cstack
+cd ~/.vscode/agents/skills/cstack && ./setup
 
 # Project install
-git clone --depth 1 https://github.com/dyrota/cstack.git .github/skills/cstack
-cd .github/skills/cstack && ./setup --local
+git clone --depth 1 https://github.com/dyrota/cstack.git .agents/skills/cstack
+cd .agents/skills/cstack && ./setup --local
 ```
 
 ## Skills
@@ -34,7 +34,7 @@ cd .github/skills/cstack && ./setup --local
 
 ## Post-MVP Skills
 
-These are planned but not yet implemented:
+These are **designed but not yet implemented** — invoking them will not work. They are included here as a roadmap:
 
 | Command | Purpose |
 |---|---|

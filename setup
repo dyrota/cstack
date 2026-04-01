@@ -68,17 +68,25 @@ CSTACK_BLOCK="$CSTACK_DIR/.github/copilot-instructions.md"
 
 if [ -f "$CSTACK_BLOCK" ]; then
   if [ -f "$INSTRUCTIONS_FILE" ]; then
-    if grep -q "cstack" "$INSTRUCTIONS_FILE" 2>/dev/null; then
+    if grep -q "# BEGIN cstack" "$INSTRUCTIONS_FILE" 2>/dev/null; then
       echo "→ copilot-instructions.md already contains cstack block, skipping."
     else
       echo "→ Appending cstack block to copilot-instructions.md..."
-      echo "" >> "$INSTRUCTIONS_FILE"
-      cat "$CSTACK_BLOCK" >> "$INSTRUCTIONS_FILE"
+      {
+        echo ""
+        echo "# BEGIN cstack"
+        cat "$CSTACK_BLOCK"
+        echo "# END cstack"
+      } >> "$INSTRUCTIONS_FILE"
     fi
   else
     echo "→ Creating copilot-instructions.md..."
     mkdir -p "$(dirname "$INSTRUCTIONS_FILE")"
-    cp "$CSTACK_BLOCK" "$INSTRUCTIONS_FILE"
+    {
+      echo "# BEGIN cstack"
+      cat "$CSTACK_BLOCK"
+      echo "# END cstack"
+    } > "$INSTRUCTIONS_FILE"
   fi
 fi
 

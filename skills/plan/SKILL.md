@@ -13,7 +13,9 @@ allowed-tools: codebase web usages
 
 ## What It Does
 
-1. Reads `DESIGN.md` if present in the workspace root
+1. Checks for `DESIGN.md` in the workspace root:
+   - **If found:** read it fully before doing anything else
+   - **If not found:** proceed with codebase exploration; list any ambiguous or missing requirements as open questions at the top of the plan — do not assume answers
 2. Searches the codebase to understand existing structure and patterns
 3. Generates a complete implementation plan — does NOT write code
 4. Hands off to the Implementer agent
