@@ -1,12 +1,12 @@
 ---
 name: test
-description: QA Lead. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
+description: Test Engineer. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
 allowed-tools: terminal edit codebase
 ---
 
-# /test — QA Lead
+# /test — Test Engineer
 
-**Role:** QA Lead  
+**Role:** Test Engineer  
 **When:** After implementation, before `/ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
 **Model (recommended):** claude-sonnet-4.6 or gpt-4.1

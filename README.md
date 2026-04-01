@@ -26,7 +26,7 @@ cd cstack
 |---|---|---|
 | `/plan` | Eng Manager | Read-only implementation plan with diagrams |
 | `/review` | Staff Engineer | Find production bugs before they ship |
-| `/test` | QA Lead | Run tests, find gaps, write missing coverage |
+| `/test` | Test Engineer | Run tests, find gaps, write missing coverage |
 | `/ship` | Release Engineer | Sync, test, commit, open PR |
 | `/debug` | Debugger | Systematic root-cause debugging |
 

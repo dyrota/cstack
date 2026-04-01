@@ -89,7 +89,7 @@ cstack/
 ---
 
 ### `/test`
-**Role:** QA Lead  
+**Role:** Test Engineer  
 **When:** After implementation, before ship  
 **What it does:**
 - Runs existing test suite via terminal
