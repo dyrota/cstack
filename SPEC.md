@@ -203,23 +203,29 @@ cstack/
 ## Custom Agents
 
 ### `planner.agent.md`
-Read-only planning persona. Tools: `web`, `codebase`, `usages`.  
+Read-only planning persona. Tools: `search/codebase`, `web/fetch`, `search/usages`.  
+Model: `['claude-opus-4.6', 'gpt-4.1']` (reasoning-preferred; tries in order).  
 Handoffs → @implementer.
 
 ### `reviewer.agent.md`
-Code review persona. Tools: `codebase`, `usages`.  
+Code review persona. Tools: `search/codebase`, `search/usages`.  
+Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
 No edit access. Handoffs → @implementer or @qa.
 
 ### `implementer.agent.md`
-Full edit persona. Tools: `edit`, `terminal`, `codebase`.  
+Full edit persona. Tools: `search/codebase`, `edit`, `vscode/terminal`, `search/usages`.  
+Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
 Handoffs → @reviewer, @qa.
 
 ### `qa.agent.md`
-QA persona. Tools: `terminal`, `edit`, `codebase`.  
+QA persona. Tools: `vscode/terminal`, `edit`, `search/codebase`.  
+Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
 Handoffs → `/ship`.
 
 ### `chronicler.agent.md`
-Session continuity persona. Tools: `codebase`, `terminal`, `edit`.  
+Session continuity persona. Tools: `search/codebase`, `vscode/terminal`, `edit`.  
+Model: `['claude-haiku-4.5', 'gpt-4.1']` (fast/cheap; context capture only).  
+`user-invocable: false` — loaded automatically by `/checkpoint`, not shown in agents dropdown.  
 Saves and restores working context via `CHECKPOINT.md`.
 
 ---
