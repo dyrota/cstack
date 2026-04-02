@@ -233,23 +233,40 @@ Saves and restores working context via `CHECKPOINT.md`.
 ## Installation
 
 ### Install globally (personal skills)
+
+**macOS / Linux:**
 ```bash
 git clone --depth 1 https://github.com/dyrota/cstack.git
 cd cstack && ./setup
 ```
+Skills → `~/.vscode/agents/skills/`, agents → `~/.github/agents/`.
 
-Skills are installed to `~/.vscode/agents/skills/`, agents to `~/.github/agents/`.
+**Windows (PowerShell):**
+```powershell
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack; .\setup.ps1
+```
+Skills → `%APPDATA%\Code\User\agents\skills\`, agents → `%USERPROFILE%\.github\agents\`.
 
 ### Install to a project
+
+**macOS / Linux:**
 ```bash
 # From within your project directory
 git clone --depth 1 https://github.com/dyrota/cstack.git
 cd cstack && ./setup --local
 ```
 
-Skills are installed to `<project-root>/.agents/skills/`, agents to `<project-root>/.github/agents/`.
+**Windows (PowerShell):**
+```powershell
+# From within your project directory
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack; .\setup.ps1 -Local
+```
 
-The `setup` script:
+Skills are installed to `<project-root>/.agents/skills/` (or `<project-root>\.agents\skills\`), agents to `<project-root>/.github/agents/`.
+
+The setup script:
 - Copies skills to the skills directory
 - Copies agents to `.github/agents/`
 - Copies prompts to `.github/prompts/`
@@ -299,7 +316,8 @@ The `setup` script:
 - [x] `prompts/pr-description.prompt.md`
 - [x] `prompts/commit-message.prompt.md`
 - [x] `prompts/test-coverage.prompt.md`
-- [x] `setup` script
+- [x] `setup` script (bash)
+- [x] `setup.ps1` script (PowerShell / Windows)
 - [x] `README.md`
 - [ ] GitHub repo public at `dyrota/cstack`
 

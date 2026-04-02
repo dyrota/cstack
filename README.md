@@ -4,8 +4,9 @@ A skill pack that turns GitHub Copilot into a virtual engineering team. Opiniona
 
 ## Quick Start
 
+**macOS / Linux**
+
 ```bash
-# Clone the repo anywhere
 git clone --depth 1 https://github.com/dyrota/cstack.git
 cd cstack
 
@@ -14,11 +15,31 @@ cd cstack
 # Skills → ~/.vscode/agents/skills/
 # Agents → ~/.github/agents/
 
-# OR: Project install (from within your project)
+# OR: Project install (run from within your project)
 ./setup --local
 # Skills → <project-root>/.agents/skills/
 # Agents → <project-root>/.github/agents/
 ```
+
+**Windows (PowerShell)**
+
+```powershell
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack
+
+# Personal install (works across all projects)
+.\setup.ps1
+# Skills → %APPDATA%\Code\User\agents\skills\
+# Agents → %USERPROFILE%\.github\agents\
+
+# OR: Project install (run from within your project)
+.\setup.ps1 -Local
+# Skills → <project-root>\.agents\skills\
+# Agents → <project-root>\.github\agents\
+```
+
+> **Note (Windows):** If you get an execution policy error, run:
+> `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
 
 ## Skills
 
