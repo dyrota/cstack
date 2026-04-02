@@ -1,7 +1,7 @@
 ---
 name: tester
 description: Tester persona. Runs tests, identifies coverage gaps, writes missing tests, and verifies everything passes before ship.
-tools: ['search/codebase', 'edit', 'vscode/terminal']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'edit', 'execute', 'read']
 model: ['claude-opus-4.6', 'claude-sonnet-4.6']
 ---
 

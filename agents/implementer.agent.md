@@ -1,7 +1,7 @@
 ---
 name: implementer
 description: Full-edit implementation persona. Reads PLAN.md and builds the feature. Has access to edit files and run terminal commands. Hands off to reviewer and QA.
-tools: ['search/codebase', 'edit', 'vscode/terminal', 'search/usages']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/changes', 'edit', 'execute', 'read', 'web/fetch']
 model: ['claude-opus-4.6', 'claude-sonnet-4.6']
 ---
 

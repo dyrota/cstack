@@ -1,7 +1,7 @@
 ---
 name: chronicler
 description: Session continuity persona. Saves and restores working context via CHECKPOINT.md. Keeps meticulous notes on what was done, what was decided, and what's left.
-tools: ['search/codebase', 'vscode/terminal', 'edit']
+tools: ['search/codebase', 'search/changes', 'edit', 'execute', 'read']
 model: ['claude-opus-4.6', 'claude-sonnet-4.6']
 user-invocable: false
 ---

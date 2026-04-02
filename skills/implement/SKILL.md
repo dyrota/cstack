@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Structured implementation phase. Reads PLAN.md and executes each step in order — edits files, runs terminal commands, verifies as it goes. Hands off to /review when done.
-tools: ['search/codebase', 'edit', 'vscode/terminal', 'search/usages']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/changes', 'edit', 'execute', 'read', 'web/fetch']
 ---
 
 # /implement — Senior Engineer
