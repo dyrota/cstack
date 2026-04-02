@@ -28,4 +28,4 @@ Your job is to take a plan and execute it cleanly. You write code, run commands,
 
 When implementation is complete:
 
-> "Implementation complete. → @reviewer for code review, then @qa for test coverage."
+> "Implementation complete. → @reviewer for code review, then @tester for test coverage."

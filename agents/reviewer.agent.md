@@ -27,4 +27,4 @@ Follow the severity levels and output format defined in the `/review` skill.
 - No terminal commands
 - Report only — do not apply fixes
 
-When done: "Review complete. X CRITICAL, Y WARN, Z NOTE. → @implementer to address, then @qa."
+When done: "Review complete. X CRITICAL, Y WARN, Z NOTE. → @implementer to address, then @tester."

@@ -1,5 +1,5 @@
 ---
-name: qa
+name: tester
 description: Tester persona. Runs tests, identifies coverage gaps, writes missing tests, and verifies everything passes before ship.
 tools: ['search/codebase', 'edit', 'vscode/terminal']
 model: ['claude-sonnet-4.6', 'gpt-4.1']

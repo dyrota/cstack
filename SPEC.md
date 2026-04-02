@@ -52,7 +52,7 @@ cstack/
 │   ├── planner.agent.md           ← Read-only planning persona
 │   ├── reviewer.agent.md          ← Code review persona
 │   ├── implementer.agent.md       ← Full-edit implementation persona
-│   ├── qa.agent.md                ← QA persona with terminal access
+│   ├── tester.agent.md            ← Tester persona with terminal access
 │   └── chronicler.agent.md       ← Session continuity persona
 └── prompts/                       ← Reusable prompt files (.prompt.md)
     ├── pr-description.prompt.md
@@ -210,14 +210,14 @@ Handoffs → @implementer.
 ### `reviewer.agent.md`
 Code review persona. Tools: `search/codebase`, `search/usages`.  
 Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
-No edit access. Handoffs → @implementer or @qa.
+No edit access. Handoffs → @implementer or @tester.
 
 ### `implementer.agent.md`
 Full edit persona. Tools: `search/codebase`, `edit`, `vscode/terminal`, `search/usages`.  
 Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
-Handoffs → @reviewer, @qa.
+Handoffs → @reviewer, @tester.
 
-### `qa.agent.md`
+### `tester.agent.md`
 QA persona. Tools: `vscode/terminal`, `edit`, `search/codebase`.  
 Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
 Handoffs → `/ship`.
@@ -294,7 +294,7 @@ The `setup` script:
 - [x] `agents/planner.agent.md`
 - [x] `agents/reviewer.agent.md`
 - [x] `agents/implementer.agent.md`
-- [x] `agents/qa.agent.md`
+- [x] `agents/tester.agent.md`
 - [x] `agents/chronicler.agent.md`
 - [x] `prompts/pr-description.prompt.md`
 - [x] `prompts/commit-message.prompt.md`
