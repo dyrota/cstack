@@ -1,7 +1,7 @@
 ---
 name: retro
 description: Weekly engineering retrospective from git history. Summarizes commits, LOC changes, shipping streaks, and hotspots. Saves snapshot to .context/retros/.
-allowed-tools: terminal codebase
+tools: ['vscode/terminal', 'search/codebase']
 ---
 
 # /retro — Engineering Manager

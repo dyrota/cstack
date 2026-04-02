@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Interactive implementation planning. Reads DESIGN.md, explores the codebase, asks clarifying questions, then generates a detailed plan with diagrams and estimates.
-allowed-tools: codebase web usages
+tools: ['search/codebase', 'web/fetch', 'search/usages']
 ---
 
 # /plan — Engineering Manager

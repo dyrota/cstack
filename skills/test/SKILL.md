@@ -1,7 +1,7 @@
 ---
 name: test
 description: Tester. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
-allowed-tools: terminal edit codebase
+tools: ['vscode/terminal', 'edit', 'search/codebase']
 ---
 
 # /test — Tester

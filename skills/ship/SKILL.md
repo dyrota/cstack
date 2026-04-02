@@ -1,7 +1,7 @@
 ---
 name: ship
 description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and tested.
-allowed-tools: terminal
+tools: ['vscode/terminal']
 ---
 
 # /ship — Release Engineer

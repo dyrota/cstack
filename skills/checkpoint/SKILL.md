@@ -1,7 +1,7 @@
 ---
 name: checkpoint
 description: Save and resume working context across sessions. Captures git state, decisions, and remaining work into CHECKPOINT.md so you can pick up exactly where you left off.
-allowed-tools: codebase terminal edit
+tools: ['search/codebase', 'vscode/terminal', 'edit']
 ---
 
 # /checkpoint — Staff Engineer

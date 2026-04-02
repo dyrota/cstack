@@ -41,6 +41,7 @@ cstack/
 │   └── copilot-instructions.md    ← cstack meta-instructions
 ├── skills/                        ← Agent Skills (SKILL.md standard)
 │   ├── plan/                      ← Interactive implementation planning
+│   ├── implement/                 ← Execute PLAN.md step-by-step
 │   ├── review/                    ← Staff-level code review
 │   ├── test/                      ← QA with real terminal + test runner
 │   ├── ship/                      ← Run tests, commit, open PR
@@ -78,6 +79,23 @@ cstack/
 
 **Tools:** `codebase`, `usages`, `web`  
 **Model (recommended):** claude-opus-4.6 or gpt-4.1 (reasoning model preferred)
+
+---
+
+### `/implement`
+**Role:** Senior Engineer  
+**When:** After `/plan` has produced `PLAN.md` and you're ready to build  
+**What it does:**
+- Reads `PLAN.md` — stops and errors if it doesn't exist
+- Verifies git state and current branch before starting
+- Executes each Implementation Step in order, checking off as it goes
+- Runs tests after each meaningful change
+- Stops and asks before any irreversible or destructive action
+- Notes unrelated issues as TODOs — does not fix out-of-scope items
+- Handoff → `/review`
+
+**Tools:** `codebase`, `edit`, `terminal`, `usages`  
+**Model (recommended):** claude-opus-4.6
 
 ---
 
@@ -278,7 +296,7 @@ The setup script:
 
 ```
 /plan                 ← generate implementation plan
-                      ← [implement via Copilot agent mode]
+/implement            ← execute PLAN.md step-by-step
 /review               ← staff engineer review
 /test                 ← run tests, fix gaps
 /ship                 ← commit + open PR
@@ -301,6 +319,7 @@ The setup script:
 ## MVP Scope (v0.1)
 
 - [x] `skills/plan/SKILL.md` (now with interactive clarification)
+- [x] `skills/implement/SKILL.md`
 - [x] `skills/review/SKILL.md`
 - [x] `skills/test/SKILL.md`
 - [x] `skills/ship/SKILL.md`

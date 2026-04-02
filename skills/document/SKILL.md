@@ -1,7 +1,7 @@
 ---
 name: document
 description: Sync documentation after shipping. Reads the diff, updates factual content in markdown files, and commits doc changes. Run after /ship.
-allowed-tools: codebase terminal edit
+tools: ['search/codebase', 'vscode/terminal', 'edit']
 ---
 
 # /document — Documenter

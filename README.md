@@ -46,6 +46,7 @@ cd cstack
 | Command | Role | What it does |
 |---|---|---|
 | `/plan` | Engineering Manager | Interactive implementation plan with diagrams |
+| `/implement` | Senior Engineer | Execute PLAN.md step-by-step, verify as you go |
 | `/review` | Staff Engineer | Find production bugs before they ship |
 | `/test` | Tester | Run tests, find gaps, write missing coverage |
 | `/ship` | Release Engineer | Sync, test, commit, open PR |
@@ -57,7 +58,7 @@ cd cstack
 ## Workflow
 
 ```
-/plan → [implement] → /review → /test → /ship
+/plan → /implement → /review → /test → /ship
                                           ↑
                                /debug anytime
                         /checkpoint to save/resume

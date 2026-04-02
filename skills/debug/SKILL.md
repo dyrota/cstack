@@ -1,7 +1,7 @@
 ---
 name: debug
 description: Systematic debugger. Forces root-cause analysis before any fix. Traces data flow, surfaces hypotheses, tests each one. Never fixes without understanding why.
-allowed-tools: codebase usages terminal
+tools: ['search/codebase', 'search/usages', 'vscode/terminal']
 ---
 
 # /debug — Debugger

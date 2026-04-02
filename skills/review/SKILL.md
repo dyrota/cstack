@@ -1,7 +1,7 @@
 ---
 name: review
 description: Staff-level code review. Finds production bugs, logic errors, edge cases, and missing error handling before code ships. Reports only — does not auto-fix.
-allowed-tools: codebase usages
+tools: ['search/codebase', 'search/usages']
 ---
 
 # /review — Staff Engineer
