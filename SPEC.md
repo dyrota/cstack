@@ -204,27 +204,27 @@ cstack/
 
 ### `planner.agent.md`
 Read-only planning persona. Tools: `search/codebase`, `web/fetch`, `search/usages`.  
-Model: `['claude-opus-4.6', 'gpt-4.1']` (reasoning-preferred; tries in order).  
+Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
 Handoffs → @implementer.
 
 ### `reviewer.agent.md`
 Code review persona. Tools: `search/codebase`, `search/usages`.  
-Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
+Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
 No edit access. Handoffs → @implementer or @tester.
 
 ### `implementer.agent.md`
 Full edit persona. Tools: `search/codebase`, `edit`, `vscode/terminal`, `search/usages`.  
-Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
+Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
 Handoffs → @reviewer, @tester.
 
 ### `tester.agent.md`
 QA persona. Tools: `vscode/terminal`, `edit`, `search/codebase`.  
-Model: `['claude-sonnet-4.6', 'gpt-4.1']`.  
+Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
 Handoffs → `/ship`.
 
 ### `chronicler.agent.md`
 Session continuity persona. Tools: `search/codebase`, `vscode/terminal`, `edit`.  
-Model: `['claude-haiku-4.5', 'gpt-4.1']` (fast/cheap; context capture only).  
+Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
 `user-invocable: false` — loaded automatically by `/checkpoint`, not shown in agents dropdown.  
 Saves and restores working context via `CHECKPOINT.md`.
 

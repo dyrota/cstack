@@ -50,10 +50,10 @@ Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 | Agent | Role | Model |
 |---|---|---|
-| `@planner` | Read-only planning | claude-opus-4.6 → gpt-4.1 |
-| `@reviewer` | Code review (reports only) | claude-sonnet-4.6 → gpt-4.1 |
-| `@implementer` | Full-edit implementation | claude-sonnet-4.6 → gpt-4.1 |
-| `@tester` | Test coverage and verification | claude-sonnet-4.6 → gpt-4.1 |
+| `@planner` | Read-only planning | claude-opus-4.6 → claude-sonnet-4.6 |
+| `@reviewer` | Code review (reports only) | claude-opus-4.6 → claude-sonnet-4.6 |
+| `@implementer` | Full-edit implementation | claude-opus-4.6 → claude-sonnet-4.6 |
+| `@tester` | Test coverage and verification | claude-opus-4.6 → claude-sonnet-4.6 |
 
 > `@chronicler` is used internally by `/checkpoint` and does not appear in the agents dropdown.
 
