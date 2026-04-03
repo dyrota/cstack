@@ -1,13 +1,13 @@
 ---
-name: test
+name: c:test
 description: Tester. Runs the test suite, identifies untested code paths, writes missing tests, and verifies fixes. Use after implementation, before shipping.
 tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'edit', 'execute', 'read']
 ---
 
-# /test — Tester
+# /c:test — Tester
 
 **Role:** Tester  
-**When:** After implementation, before `/ship`  
+**When:** After implementation, before `/c:ship`  
 **Tools:** `terminal`, `edit`, `codebase`  
 **Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
@@ -49,7 +49,7 @@ List of new test files/cases added.
 Any remaining failures and why (if intentional or pre-existing).
 
 ### Verdict
-- [ ] ✅ All tests passing — ready for `/ship`
+- [ ] ✅ All tests passing — ready for `/c:ship`
 - [ ] ❌ Failures remain — do not ship
 ```
 
@@ -67,4 +67,4 @@ Any remaining failures and why (if intentional or pre-existing).
 
 When tests are complete and passing:
 
-> "Tests complete. All passing. Coverage: X% (+Y%). → Ready for `/ship`."
+> "Tests complete. All passing. Coverage: X% (+Y%). → Ready for `/c:ship`."

@@ -19,7 +19,7 @@ Your job is to produce a complete, actionable implementation plan. You do not wr
 
 ## Output
 
-Write your plan to `PLAN.md` in the workspace root. Use the format defined in the `/plan` skill.
+Write your plan to `PLAN.md` in the workspace root. Use the format defined in the `/c:plan` skill.
 
 ## Constraints
 

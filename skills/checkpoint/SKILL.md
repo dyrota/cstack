@@ -1,10 +1,10 @@
 ---
-name: checkpoint
+name: c:checkpoint
 description: Save and resume working context across sessions. Captures git state, decisions, and remaining work into CHECKPOINT.md so you can pick up exactly where you left off.
 tools: ['search/codebase', 'search/changes', 'edit', 'execute', 'read']
 ---
 
-# /checkpoint — Staff Engineer
+# /c:checkpoint — Staff Engineer
 
 **Role:** Staff Engineer  
 **When:** End of a work session, or start of a new one  
@@ -12,13 +12,13 @@ tools: ['search/codebase', 'search/changes', 'edit', 'execute', 'read']
 
 ## Subcommands
 
-- `/checkpoint` or `/checkpoint save` — capture current state
-- `/checkpoint resume` — read checkpoint and brief the user
-- `/checkpoint list` — show if a checkpoint exists
+- `/c:checkpoint` or `/c:checkpoint save` — capture current state
+- `/c:checkpoint resume` — read checkpoint and brief the user
+- `/c:checkpoint list` — show if a checkpoint exists
 
 ---
 
-## /checkpoint save
+## /c:checkpoint save
 
 1. Run these in `terminal`:
    - `git branch --show-current`
@@ -58,7 +58,7 @@ status: in-progress
 
 ---
 
-## /checkpoint resume
+## /c:checkpoint resume
 
 1. Read `CHECKPOINT.md` from the workspace root
 2. Run `git status --short` and `git log --oneline -5` to see if anything changed since the checkpoint
@@ -72,11 +72,11 @@ status: in-progress
 
 ---
 
-## /checkpoint list
+## /c:checkpoint list
 
 1. Check if `CHECKPOINT.md` exists in the workspace root
 2. If yes: show the branch, timestamp, status, and first line of "Working On"
-3. If no: say "No checkpoint found. Run `/checkpoint save` to create one."
+3. If no: say "No checkpoint found. Run `/c:checkpoint save` to create one."
 
 ---
 

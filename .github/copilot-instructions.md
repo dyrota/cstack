@@ -7,19 +7,19 @@ For the full skill reference, agent list, and workflow, see the [cstack README](
 ## Workflow
 
 ```
-/plan → [implement] → /review → /test → /ship → /document
+/c:plan → /c:implement → /c:review → /c:test → /c:ship → /c:document
 ```
 
-Use `/checkpoint` to save/resume context between sessions. Use `/retro` for weekly retrospectives.
+Use `/c:checkpoint` to save/resume context between sessions. Use `/c:retro` for weekly retrospectives.
 
 Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 ## Rules
 
-- Run `/plan` before starting any non-trivial feature (it will ask clarifying questions if needed)
-- Run `/review` before opening any PR
-- Run `/test` before `/ship`
-- `/ship` will abort if tests fail — don't try to sneak broken code past it
-- `/debug` requires root cause before any fix (Iron Law)
-- Run `/document` after `/ship` to sync docs with what changed
-- Use `/checkpoint save` at end of session, `/checkpoint resume` at start
+- Run `/c:plan` before starting any non-trivial feature (it will ask clarifying questions if needed)
+- Run `/c:review` before opening any PR
+- Run `/c:test` before `/c:ship`
+- `/c:ship` will abort if tests fail — don't try to sneak broken code past it
+- `/c:debug` requires root cause before any fix (Iron Law)
+- Run `/c:document` after `/c:ship` to sync docs with what changed
+- Use `/c:checkpoint save` at end of session, `/c:checkpoint resume` at start

@@ -8,7 +8,7 @@ A skill pack for GitHub Copilot in VS Code. Turns Copilot from a general-purpose
 
 ## What is cstack?
 
-cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**, and **Prompt Files** for GitHub Copilot in VS Code. Install it once and gain `/plan`, `/review`, `/test`, `/ship`, `/debug`, and more — all wired to the right Copilot tools, models, and handoffs.
+cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**, and **Prompt Files** for GitHub Copilot in VS Code. Install it once and gain `/c:plan`, `/c:review`, `/c:test`, `/c:ship`, `/c:debug`, and more — all wired to the right Copilot tools, models, and handoffs.
 
 ---
 
@@ -24,9 +24,9 @@ cstack is an opinionated, open-source set of **Agent Skills**, **Custom Agents**
 
 ## Skills vs Agents
 
-- **Skills** (`SKILL.md`) are slash commands that trigger a specific workflow. Run `/plan` to generate a plan, `/review` to do a code review, etc.
+- **Skills** (`SKILL.md`) are slash commands that trigger a specific workflow. Run `/c:plan` to generate a plan, `/c:review` to do a code review, etc.
 - **Agents** (`.agent.md`) are personas that can be @mentioned for ongoing collaboration. Talk to `@planner` for planning help, `@reviewer` for review feedback, etc.
-- They're complementary: `/plan` runs the plan skill; `@planner` is the persona you work with during planning. Use `/skill` to run a phase. Use `@agent` to work with a persona.
+- They're complementary: `/c:plan` runs the plan skill; `@planner` is the persona you work with during planning. Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 ---
 
@@ -65,7 +65,7 @@ cstack/
 
 ## Skills
 
-### `/plan`
+### `/c:plan`
 **Role:** Engineering Manager  
 **When:** Before starting any new feature or task  
 **What it does:**
@@ -82,9 +82,9 @@ cstack/
 
 ---
 
-### `/implement`
+### `/c:implement`
 **Role:** Senior Engineer  
-**When:** After `/plan` has produced `PLAN.md` and you're ready to build  
+**When:** After `/c:plan` has produced `PLAN.md` and you're ready to build  
 **What it does:**
 - Reads `PLAN.md` — stops and errors if it doesn't exist
 - Verifies git state and current branch before starting
@@ -92,28 +92,28 @@ cstack/
 - Runs tests after each meaningful change
 - Stops and asks before any irreversible or destructive action
 - Notes unrelated issues as TODOs — does not fix out-of-scope items
-- Handoff → `/review`
+- Handoff → `/c:review`
 
 **Tools:** `codebase`, `edit`, `terminal`, `usages`  
 **Model (recommended):** claude-opus-4.6
 
 ---
 
-### `/review`
+### `/c:review`
 **Role:** Staff Engineer  
 **When:** After a feature branch is done, before PR  
 **What it does:**
 - Reviews diff vs main for logic bugs, edge cases, missing error handling
 - Auto-flags issues with severity (CRITICAL / WARN / NOTE)
 - Does NOT auto-fix — reports only, developer approves
-- Handoff → `/test`
+- Handoff → `/c:test`
 
 **Tools:** `codebase`, `usages`  
 **Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ---
 
-### `/test`
+### `/c:test`
 **Role:** Tester  
 **When:** After implementation, before ship  
 **What it does:**
@@ -121,14 +121,14 @@ cstack/
 - Identifies untested paths from coverage report
 - Writes missing tests
 - Verifies fixes
-- Handoff → `/ship`
+- Handoff → `/c:ship`
 
 **Tools:** `terminal`, `edit`, `codebase`  
 **Model (recommended):** claude-sonnet-4.6 or gpt-4.1
 
 ---
 
-### `/ship`
+### `/c:ship`
 **Role:** Release Engineer  
 **When:** Feature is done, reviewed, and tested  
 **What it does:**
@@ -143,7 +143,7 @@ cstack/
 
 ---
 
-### `/debug`
+### `/c:debug`
 **Role:** Debugger  
 **When:** Facing a bug with unknown root cause  
 **What it does:**
@@ -159,20 +159,20 @@ cstack/
 
 ---
 
-### `/checkpoint`
+### `/c:checkpoint`
 **Role:** Staff Engineer  
 **When:** End of a work session, or start of a new one  
 **What it does:**
-- `/checkpoint save` — captures git state, decisions, and remaining work into `CHECKPOINT.md`
-- `/checkpoint resume` — reads checkpoint and briefs user on where they left off
-- `/checkpoint list` — shows if a checkpoint exists
+- `/c:checkpoint save` — captures git state, decisions, and remaining work into `CHECKPOINT.md`
+- `/c:checkpoint resume` — reads checkpoint and briefs user on where they left off
+- `/c:checkpoint list` — shows if a checkpoint exists
 - Read-only on source files — only writes `CHECKPOINT.md`
 
 **Tools:** `codebase`, `terminal`, `edit`
 
 ---
 
-### `/retro`
+### `/c:retro`
 **Role:** Engineering Manager  
 **When:** End of week or sprint  
 **What it does:**
@@ -186,9 +186,9 @@ cstack/
 
 ---
 
-### `/document`
+### `/c:document`
 **Role:** Documenter  
-**When:** After `/ship` — code is committed and PR is open  
+**When:** After `/c:ship` — code is committed and PR is open  
 **What it does:**
 - Diffs what changed vs current docs
 - Auto-updates factual content (file paths, counts, tables, version numbers)
@@ -206,12 +206,12 @@ cstack/
 
 ## Post-MVP Skills
 
-### `/think`
+### `/c:think`
 **Role:** Facilitator  
 **Purpose:** Reframe the problem before writing code. Asks 6 forcing questions, pushes back on feature requests, generates 3 implementation approaches with effort estimates, produces a `DESIGN.md`.  
 **Model (recommended):** claude-opus-4.6
 
-### `/audit`
+### `/c:audit`
 **Role:** Chief Security Officer  
 **Purpose:** OWASP Top 10 scan + STRIDE threat model. Confidence gate: only surfaces 8/10+ findings. Each finding includes a concrete exploit scenario. Zero noise policy.  
 **Model (recommended):** claude-opus-4.6
@@ -238,12 +238,12 @@ Handoffs → @reviewer, @tester.
 ### `tester.agent.md`
 QA persona. Tools: `vscode/terminal`, `edit`, `search/codebase`.  
 Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
-Handoffs → `/ship`.
+Handoffs → `/c:ship`.
 
 ### `chronicler.agent.md`
 Session continuity persona. Tools: `search/codebase`, `vscode/terminal`, `edit`.  
 Model: `['claude-opus-4.6', 'claude-sonnet-4.6']`.  
-`user-invocable: false` — loaded automatically by `/checkpoint`, not shown in agents dropdown.  
+`user-invocable: false` — loaded automatically by `/c:checkpoint`, not shown in agents dropdown.  
 Saves and restores working context via `CHECKPOINT.md`.
 
 ---
@@ -295,13 +295,13 @@ The setup script:
 ## Workflow
 
 ```
-/plan                 ← generate implementation plan
-/implement            ← execute PLAN.md step-by-step
-/review               ← staff engineer review
-/test                 ← run tests, fix gaps
-/ship                 ← commit + open PR
+/c:plan                 ← generate implementation plan
+/c:implement            ← execute PLAN.md step-by-step
+/c:review               ← staff engineer review
+/c:test                 ← run tests, fix gaps
+/c:ship                 ← commit + open PR
 
-/debug                ← anytime a bug needs root-cause analysis
+/c:debug                ← anytime a bug needs root-cause analysis
 ```
 
 ---
@@ -318,15 +318,15 @@ The setup script:
 
 ## MVP Scope (v0.1)
 
-- [x] `skills/plan/SKILL.md` (now with interactive clarification)
-- [x] `skills/implement/SKILL.md`
-- [x] `skills/review/SKILL.md`
-- [x] `skills/test/SKILL.md`
-- [x] `skills/ship/SKILL.md`
-- [x] `skills/debug/SKILL.md`
-- [x] `skills/checkpoint/SKILL.md`
-- [x] `skills/retro/SKILL.md`
-- [x] `skills/document/SKILL.md`
+- [x] `skills/c:plan/SKILL.md` (now with interactive clarification)
+- [x] `skills/c:implement/SKILL.md`
+- [x] `skills/c:review/SKILL.md`
+- [x] `skills/c:test/SKILL.md`
+- [x] `skills/c:ship/SKILL.md`
+- [x] `skills/c:debug/SKILL.md`
+- [x] `skills/c:checkpoint/SKILL.md`
+- [x] `skills/c:retro/SKILL.md`
+- [x] `skills/c:document/SKILL.md`
 - [x] `agents/planner.agent.md`
 - [x] `agents/reviewer.agent.md`
 - [x] `agents/implementer.agent.md`
@@ -334,7 +334,7 @@ The setup script:
 - [x] `agents/chronicler.agent.md`
 - [x] `prompts/pr-description.prompt.md`
 - [x] `prompts/commit-message.prompt.md`
-- [x] `prompts/test-coverage.prompt.md`
+- [x] `prompts/c:test-coverage.prompt.md`
 - [x] `setup` script (bash)
 - [x] `setup.ps1` script (PowerShell / Windows)
 - [x] `README.md`
@@ -342,8 +342,8 @@ The setup script:
 
 ## Post-MVP
 
-- [ ] `skills/think/SKILL.md`
-- [ ] `skills/audit/SKILL.md`
+- [ ] `skills/c:think/SKILL.md`
+- [ ] `skills/c:audit/SKILL.md`
 - [ ] `agents/security.agent.md`
 - [ ] VS Code Marketplace extension (contributes skills via `chatSkills` contribution point)
-- [ ] `/create-cstack` command that generates customization files with AI
+- [ ] `/c:create-cstack` command that generates customization files with AI

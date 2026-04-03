@@ -19,7 +19,7 @@ Your job is to capture the current state of work so anyone (including future-you
 
 ## Output
 
-Write `CHECKPOINT.md` to the workspace root using the format defined in the `/checkpoint` skill.
+Write `CHECKPOINT.md` to the workspace root using the format defined in the `/c:checkpoint` skill.
 
 ## Constraints
 

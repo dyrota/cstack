@@ -1,10 +1,10 @@
 ---
-name: retro
+name: c:retro
 description: Weekly engineering retrospective from git history. Summarizes commits, LOC changes, shipping streaks, and hotspots. Saves snapshot to .context/retros/.
 tools: ['execute', 'read', 'search/codebase', 'search/changes']
 ---
 
-# /retro — Engineering Manager
+# /c:retro — Engineering Manager
 
 **Role:** Engineering Manager  
 **When:** End of week, end of sprint, or anytime you want a pulse check  
@@ -13,9 +13,9 @@ tools: ['execute', 'read', 'search/codebase', 'search/changes']
 
 ## Usage
 
-- `/retro` — last 7 days (default)
-- `/retro 14d` — last 14 days
-- `/retro 30d` — last 30 days
+- `/c:retro` — last 7 days (default)
+- `/c:retro 14d` — last 14 days
+- `/c:retro 30d` — last 30 days
 
 ## What It Does
 

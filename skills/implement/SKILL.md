@@ -1,13 +1,13 @@
 ---
-name: implement
-description: Structured implementation phase. Reads PLAN.md and executes each step in order — edits files, runs terminal commands, verifies as it goes. Hands off to /review when done.
+name: c:implement
+description: Structured implementation phase. Reads PLAN.md and executes each step in order — edits files, runs terminal commands, verifies as it goes. Hands off to /c:review when done.
 tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/changes', 'edit', 'execute', 'read', 'web/fetch']
 ---
 
-# /implement — Senior Engineer
+# /c:implement — Senior Engineer
 
 **Role:** Senior Engineer  
-**When:** After `/plan` has produced a `PLAN.md` and you're ready to build  
+**When:** After `/c:plan` has produced a `PLAN.md` and you're ready to build  
 **Tools:** `search/codebase`, `edit`, `vscode/terminal`, `search/usages`  
 **Model (recommended):** claude-opus-4.6
 
@@ -18,12 +18,12 @@ tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSea
 3. **Execute each step in order** — work through `Implementation Steps` one at a time
 4. **Run and verify as you go** — after each meaningful change, run relevant tests or a sanity check
 5. **Stay in scope** — note unrelated issues as TODOs, don't fix them now
-6. **Hand off to `/review`** when all steps are complete and tests pass
+6. **Hand off to `/c:review`** when all steps are complete and tests pass
 
 ## Step-by-Step Behavior
 
 ### Before starting
-- Read `PLAN.md` fully. If it doesn't exist, stop and say: "No `PLAN.md` found. Run `/plan` first."
+- Read `PLAN.md` fully. If it doesn't exist, stop and say: "No `PLAN.md` found. Run `/c:plan` first."
 - Check `git status`. If there are uncommitted changes unrelated to this task, warn the user before proceeding.
 - Confirm the current branch looks correct for this feature.
 
@@ -61,8 +61,8 @@ tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSea
 
 When implementation is complete and tests pass:
 
-> "Implementation complete. All steps from PLAN.md executed. → Run `/review` before merging."
+> "Implementation complete. All steps from PLAN.md executed. → Run `/c:review` before merging."
 
 If tests are failing:
 
-> "Implementation complete with failing tests: <list>. Investigate before running `/review`."
+> "Implementation complete with failing tests: <list>. Investigate before running `/c:review`."

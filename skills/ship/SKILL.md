@@ -1,10 +1,10 @@
 ---
-name: ship
+name: c:ship
 description: Release Engineer. Syncs with main, runs tests, commits with a conventional commit message, and opens a GitHub PR. Use when the feature is done, reviewed, and tested.
 tools: ['execute', 'read', 'search/changes']
 ---
 
-# /ship — Release Engineer
+# /c:ship — Release Engineer
 
 > **Requires `gh` CLI** — run `gh auth login` if not already authenticated.
 
@@ -48,12 +48,12 @@ The problem this solves or the value it adds.
 Key implementation decisions and trade-offs.
 
 ## Testing
-How this was tested. Link to `/test` report if available.
+How this was tested. Link to `/c:test` report if available.
 
 ## Checklist
 - [ ] Tests pass
 - [ ] Coverage maintained or improved
-- [ ] Reviewed by `/review`
+- [ ] Reviewed by `/c:review`
 - [ ] Docs updated if needed
 ```
 

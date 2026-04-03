@@ -1,10 +1,10 @@
 ---
-name: review
+name: c:review
 description: Staff-level code review. Finds production bugs, logic errors, edge cases, and missing error handling before code ships. Reports only — does not auto-fix.
 tools: ['search/codebase', 'search/usages']
 ---
 
-# /review — Staff Engineer
+# /c:review — Staff Engineer
 
 **Role:** Staff Engineer  
 **When:** Before any PR, or after a feature branch is complete  
@@ -62,4 +62,4 @@ Suggestion: What to do instead (but do not edit the file).
 
 When review is complete:
 
-> "Review complete. X CRITICAL, Y WARN, Z NOTE. → `/test` when fixes are applied."
+> "Review complete. X CRITICAL, Y WARN, Z NOTE. → `/c:test` when fixes are applied."

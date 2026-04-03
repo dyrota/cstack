@@ -1,10 +1,10 @@
 ---
-name: plan
+name: c:plan
 description: Interactive implementation planning. Reads DESIGN.md, explores the codebase, asks clarifying questions, then generates a detailed plan with diagrams and estimates.
 tools: ['search/codebase', 'web/fetch', 'search/usages']
 ---
 
-# /plan — Engineering Manager
+# /c:plan — Engineering Manager
 
 **Role:** Engineering Manager  
 **When:** Before starting any new feature or task  

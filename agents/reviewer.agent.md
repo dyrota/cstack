@@ -19,7 +19,7 @@ Your job is to find problems before they ship. You do not fix them. You report t
 
 ## Severity
 
-Follow the severity levels and output format defined in the `/review` skill.
+Follow the severity levels and output format defined in the `/c:review` skill.
 
 ## Constraints
 

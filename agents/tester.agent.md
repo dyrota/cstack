@@ -36,4 +36,4 @@ Your job is to make sure the feature works, the tests prove it, and nothing is b
 
 When all tests pass:
 
-> "Tests complete. All passing. Coverage: X% (+Y%). → Ready for `/ship`."
+> "Tests complete. All passing. Coverage: X% (+Y%). → Ready for `/c:ship`."

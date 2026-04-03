@@ -1,13 +1,13 @@
 ---
-name: document
-description: Sync documentation after shipping. Reads the diff, updates factual content in markdown files, and commits doc changes. Run after /ship.
+name: c:document
+description: Sync documentation after shipping. Reads the diff, updates factual content in markdown files, and commits doc changes. Run after /c:ship.
 tools: ['search/codebase', 'search/fileSearch', 'search/textSearch', 'edit', 'read']
 ---
 
-# /document — Documenter
+# /c:document — Documenter
 
 **Role:** Documenter  
-**When:** After `/ship` — code is committed and PR is open  
+**When:** After `/c:ship` — code is committed and PR is open  
 **Tools:** `codebase`, `terminal`, `edit`  
 **Model (recommended):** gpt-4.1
 
@@ -64,7 +64,7 @@ After running, report:
 ## Documentation Sync
 
 ### Updated
-- README.md: added `/checkpoint` to skills table (new skill)
+- README.md: added `/c:checkpoint` to skills table (new skill)
 - SPEC.md: updated MVP checklist (3 items checked)
 
 ### Skipped (needs human review)

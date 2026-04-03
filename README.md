@@ -45,25 +45,25 @@ cd cstack
 
 | Command | Role | What it does |
 |---|---|---|
-| `/plan` | Engineering Manager | Interactive implementation plan with diagrams |
-| `/implement` | Senior Engineer | Execute PLAN.md step-by-step, verify as you go |
-| `/review` | Staff Engineer | Find production bugs before they ship |
-| `/test` | Tester | Run tests, find gaps, write missing coverage |
-| `/ship` | Release Engineer | Sync, test, commit, open PR |
-| `/debug` | Debugger | Systematic root-cause debugging |
-| `/checkpoint` | Staff Engineer | Save and resume working context across sessions |
-| `/retro` | Engineering Manager | Weekly retrospective from git history |
-| `/document` | Documenter | Sync docs after shipping |
+| `/c:plan` | Engineering Manager | Interactive implementation plan with diagrams |
+| `/c:implement` | Senior Engineer | Execute PLAN.md step-by-step, verify as you go |
+| `/c:review` | Staff Engineer | Find production bugs before they ship |
+| `/c:test` | Tester | Run tests, find gaps, write missing coverage |
+| `/c:ship` | Release Engineer | Sync, test, commit, open PR |
+| `/c:debug` | Debugger | Systematic root-cause debugging |
+| `/c:checkpoint` | Staff Engineer | Save and resume working context across sessions |
+| `/c:retro` | Engineering Manager | Weekly retrospective from git history |
+| `/c:document` | Documenter | Sync docs after shipping |
 
 ## Workflow
 
 ```
-/plan → /implement → /review → /test → /ship
+/c:plan → /c:implement → /c:review → /c:test → /c:ship
                                           ↑
-                               /debug anytime
-                        /checkpoint to save/resume
-                         /retro for weekly review
-                     /document to sync docs after ship
+                               /c:debug anytime
+                        /c:checkpoint to save/resume
+                         /c:retro for weekly review
+                     /c:document to sync docs after ship
 ```
 
 Use `/skill` to run a phase. Use `@agent` to work with a persona.
@@ -77,7 +77,7 @@ Use `/skill` to run a phase. Use `@agent` to work with a persona.
 | `@implementer` | Full-edit implementation | claude-opus-4.6 → claude-sonnet-4.6 |
 | `@tester` | Test coverage and verification | claude-opus-4.6 → claude-sonnet-4.6 |
 
-> `@chronicler` is used internally by `/checkpoint` and does not appear in the agents dropdown.
+> `@chronicler` is used internally by `/c:checkpoint` and does not appear in the agents dropdown.
 
 ## Post-MVP Skills
 
@@ -85,8 +85,8 @@ These are **designed but not yet implemented** — invoking them will not work. 
 
 | Command | Purpose |
 |---|---|
-| `/think` | Reframe the problem before writing code (forcing questions, 3 approaches) |
-| `/audit` | Security review: OWASP Top 10 + STRIDE threat model |
+| `/c:think` | Reframe the problem before writing code (forcing questions, 3 approaches) |
+| `/c:audit` | Security review: OWASP Top 10 + STRIDE threat model |
 
 ## Why
 
