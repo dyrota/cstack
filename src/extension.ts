@@ -14,14 +14,7 @@ import { runDoctor } from './commands/doctor';
 import { runOpenSummary } from './commands/openSummary';
 import { runConfigure } from './commands/configure';
 
-import {
-  parseSkillCommand,
-  isParseError,
-  isSwarmNotSupported,
-  wasWorkerCountCapped,
-} from './parser/skillParser';
-import { resolveTask } from './parser/taskResolver';
-import { SWARM_CAPABLE_SKILLS, SWARM_TRIGGER_FILE, EXTENSION_VERSION } from './constants';
+import { SWARM_TRIGGER_FILE, EXTENSION_VERSION } from './constants';
 import { SwarmTrigger } from './types';
 
 let statusBarItem: vscode.StatusBarItem;
@@ -65,14 +58,6 @@ export function activate(context: vscode.ExtensionContext): void {
       await handleSwarmTrigger(args);
     })
   );
-
-  // Register @cstack chat participant (secondary entry point for swarm)
-  const participant = vscode.chat.createChatParticipant(
-    'dyrota.cstack',
-    handleChatRequest
-  );
-  participant.iconPath = vscode.Uri.joinPath(context.extensionUri, 'assets', 'icon.png');
-  context.subscriptions.push(participant);
 
   // Start watching workspace for swarm triggers
   const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
@@ -120,83 +105,6 @@ export function activate(context: vscode.ExtensionContext): void {
 export function deactivate(): void {
   sessionManager?.stopWatching();
   disposeChannel();
-}
-
-async function handleChatRequest(
-  request: vscode.ChatRequest,
-  context: vscode.ChatContext,
-  stream: vscode.ChatResponseStream,
-  token: vscode.CancellationToken
-): Promise<void> {
-  const input = request.command
-    ? `/c:${request.command} ${request.prompt}`.trim()
-    : request.prompt;
-
-  // Try to parse as a swarm command
-  const parsed = parseSkillCommand(input);
-
-  if (isParseError(parsed)) {
-    stream.markdown(parsed.message);
-    stream.markdown(`\n\n**Suggestion:** ${parsed.suggestion}`);
-    return;
-  }
-
-  if (!parsed.swarm) {
-    if (isSwarmNotSupported(input, parsed)) {
-      stream.markdown(
-        `Running /c:${parsed.skill} normally — swarm mode not supported for this skill.`
-      );
-    } else {
-      stream.markdown(
-        `Use /c:${parsed.skill} directly in Copilot Chat, or use @cstack /swarm ${parsed.skill}:N for parallel execution.`
-      );
-    }
-    return;
-  }
-
-  if (wasWorkerCountCapped(parsed)) {
-    stream.markdown(`Note: N capped at 8 workers.\n\n`);
-  }
-
-  // Resolve task
-  const resolved = await resolveTask(parsed.inlineDescription, parsed.skill);
-  if (!resolved) {
-    stream.markdown('Swarm cancelled — no task provided.');
-    return;
-  }
-
-  // Build and process trigger
-  const trigger: SwarmTrigger = {
-    skill: parsed.skill,
-    workerCount: parsed.workerCount,
-    taskSource: resolved.source,
-    taskDescription: resolved.description,
-    timestamp: new Date().toISOString(),
-  };
-
-  stream.markdown(
-    `Initializing /c:${parsed.skill}:swarm:${parsed.workerCount} — generating coordinator and ${parsed.workerCount} worker agents...\n\n`
-  );
-
-  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-  if (!workspaceRoot) {
-    stream.markdown('Error: No workspace folder open.');
-    return;
-  }
-
-  await sessionManager.initializeSwarm(trigger, workspaceRoot);
-
-  const role = parsed.skill === 'implement' ? 'Builder'
-    : parsed.skill === 'test' ? 'Tester'
-    : 'Debugger';
-
-  stream.markdown(
-    `**Swarm ready:** ${parsed.workerCount} ${role} workers initialized.\n\n` +
-    `Open a new Copilot Chat session and invoke the \`@cstack-coordinator-${parsed.skill}\` agent to begin.\n\n` +
-    `Task: *${resolved.description}*`
-  );
-
-  updateStatusBar(parsed.skill, parsed.workerCount);
 }
 
 async function handleSwarmTrigger(trigger: SwarmTrigger): Promise<void> {

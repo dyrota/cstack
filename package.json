@@ -32,20 +32,6 @@
       { "path": "./assets/skills/retro/SKILL.md" },
       { "path": "./assets/skills/document/SKILL.md" }
     ],
-    "chatParticipants": [
-      {
-        "id": "dyrota.cstack",
-        "name": "cstack",
-        "fullName": "cstack Swarm Coordinator",
-        "description": "Multi-agent swarm orchestration. Use @cstack /swarm implement:4 to spawn 4 parallel Builder agents.",
-        "locations": ["panel"],
-        "commands": [
-          { "name": "swarm", "description": "Spawn parallel workers: @cstack /swarm implement:4 [task]" },
-          { "name": "reset", "description": "Tear down active swarm session" },
-          { "name": "status", "description": "Show swarm session status" }
-        ]
-      }
-    ],
     "commands": [
       {
         "command": "cstack.init",
