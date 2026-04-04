@@ -21,10 +21,13 @@
     "chatSkills": [
       { "path": "./assets/skills/plan/SKILL.md" },
       { "path": "./assets/skills/implement/SKILL.md" },
+      { "path": "./assets/skills/implement-swarm/SKILL.md" },
       { "path": "./assets/skills/review/SKILL.md" },
       { "path": "./assets/skills/test/SKILL.md" },
+      { "path": "./assets/skills/test-swarm/SKILL.md" },
       { "path": "./assets/skills/ship/SKILL.md" },
       { "path": "./assets/skills/debug/SKILL.md" },
+      { "path": "./assets/skills/debug-swarm/SKILL.md" },
       { "path": "./assets/skills/checkpoint/SKILL.md" },
       { "path": "./assets/skills/retro/SKILL.md" },
       { "path": "./assets/skills/document/SKILL.md" }
