@@ -1,0 +1,110 @@
+{
+  "name": "cstack",
+  "displayName": "cstack — Engineering Team for Copilot",
+  "description": "Slash commands for plan, implement, review, test, ship, debug — plus swarm orchestration for multi-agent tasks.",
+  "version": "1.1.0",
+  "publisher": "dyrota",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": ["AI", "Other"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dyrota/cstack.git"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onWorkspaceContains:.cstack/"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "chatSkills": [
+      { "path": "./assets/skills/plan/SKILL.md" },
+      { "path": "./assets/skills/implement/SKILL.md" },
+      { "path": "./assets/skills/review/SKILL.md" },
+      { "path": "./assets/skills/test/SKILL.md" },
+      { "path": "./assets/skills/ship/SKILL.md" },
+      { "path": "./assets/skills/debug/SKILL.md" },
+      { "path": "./assets/skills/checkpoint/SKILL.md" },
+      { "path": "./assets/skills/retro/SKILL.md" },
+      { "path": "./assets/skills/document/SKILL.md" }
+    ],
+    "chatParticipants": [
+      {
+        "id": "dyrota.cstack",
+        "name": "cstack",
+        "fullName": "cstack Swarm Coordinator",
+        "description": "Multi-agent swarm orchestration. Use @cstack /swarm implement:4 to spawn 4 parallel Builder agents.",
+        "locations": ["panel"],
+        "commands": [
+          { "name": "swarm", "description": "Spawn parallel workers: @cstack /swarm implement:4 [task]" },
+          { "name": "reset", "description": "Tear down active swarm session" },
+          { "name": "status", "description": "Show swarm session status" }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "cstack.init",
+        "title": "cstack: Initialize Workspace"
+      },
+      {
+        "command": "cstack.installSkills",
+        "title": "cstack: Install / Update Skills"
+      },
+      {
+        "command": "cstack.swarmReset",
+        "title": "cstack: Reset Swarm"
+      },
+      {
+        "command": "cstack.doctor",
+        "title": "cstack: Doctor"
+      },
+      {
+        "command": "cstack.openSummary",
+        "title": "cstack: Open Last Swarm Summary"
+      },
+      {
+        "command": "cstack.configure",
+        "title": "cstack: Configure"
+      }
+    ],
+    "configuration": {
+      "title": "cstack",
+      "properties": {
+        "cstack.defaultWorkerCount": {
+          "type": "number",
+          "default": 4,
+          "minimum": 1,
+          "maximum": 8,
+          "description": "Default number of swarm workers when N not specified."
+        },
+        "cstack.autoInstallSkills": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically install cstack skills globally on activation."
+        }
+      }
+    },
+    "yamlValidation": [
+      {
+        "fileMatch": "**/.cstack/swarm.yaml",
+        "url": "./schemas/swarm.schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --loader:.tmpl=text",
+    "compile:watch": "npm run compile -- --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "npm run compile && vsce package",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.99.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.0"
+  }
+}
