@@ -16,7 +16,7 @@ export function getInstallPaths(location: InstallLocation, projectRoot?: string)
   if (location === 'global') {
     const home = os.homedir();
     return {
-      skillsPath: path.join(home, '.vscode', 'agents', 'skills'),
+      skillsPath: path.join(home, '.agents', 'skills'),
       agentsPath: path.join(home, '.github', 'agents'),
       promptsPath: path.join(home, '.github', 'prompts'),
       instructionsPath: path.join(home, '.github', 'copilot-instructions.md'),

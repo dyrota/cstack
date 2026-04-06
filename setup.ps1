@@ -41,11 +41,11 @@ if ($Local) {
     $InstructionsFile = "$ProjectRoot\.github\copilot-instructions.md"
     Write-Host "📦 Installing cstack locally into $ProjectRoot\"
 } else {
-    $SkillsDir       = "$env:APPDATA\Code\User\agents\skills"
+    $SkillsDir       = "$env:USERPROFILE\.agents\skills"
     $AgentsDir       = "$env:USERPROFILE\.github\agents"
     $PromptsDir      = "$env:USERPROFILE\.github\prompts"
     $InstructionsFile = "$env:USERPROFILE\.github\copilot-instructions.md"
-    Write-Host "📦 Installing cstack globally into $env:APPDATA\Code\User\agents\skills\ and $env:USERPROFILE\.github\"
+    Write-Host "📦 Installing cstack globally into $env:USERPROFILE\.agents\skills\ and $env:USERPROFILE\.github\"
 }
 
 # Create directories

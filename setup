@@ -48,13 +48,12 @@ if [ "$LOCAL" = true ]; then
   AGENTS_DIR="$PROJECT_ROOT/.github/agents"
   PROMPTS_DIR="$PROJECT_ROOT/.github/prompts"
   INSTRUCTIONS_FILE="$PROJECT_ROOT/.github/copilot-instructions.md"
-  echo "📦 Installing cstack locally into $PROJECT_ROOT/"
-else
-  SKILLS_DIR="$HOME/.vscode/agents/skills"
+  echo "📦 Installing cstack locally into $PROJECT_ROOT/"else
+  SKILLS_DIR="$HOME/.agents/skills"
   AGENTS_DIR="$HOME/.github/agents"
   PROMPTS_DIR="$HOME/.github/prompts"
   INSTRUCTIONS_FILE="$HOME/.github/copilot-instructions.md"
-  echo "📦 Installing cstack globally into ~/.vscode/agents/skills/ and ~/.github/"
+  echo "📦 Installing cstack globally into ~/.agents/skills/ and ~/.github/"
 fi
 
 # Create directories

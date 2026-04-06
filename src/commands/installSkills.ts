@@ -13,12 +13,12 @@ export async function runInstallSkills(
   let location: InstallLocation;
 
   if (existingPath) {
-    const isGlobal = existingPath.includes('.vscode') || existingPath.startsWith(process.env.HOME ?? '~');
+    const isGlobal = !existingPath.includes(workspaceRoot ?? '\x00');
     location = isGlobal ? 'global' : 'local';
     log(`Reinstalling to ${location} path: ${existingPath}`);
   } else {
     const choice = await vscode.window.showQuickPick(
-      ['Global (~/.vscode/agents/skills/)', 'Local (.agents/skills/ in workspace)'],
+      ['Global (~/.agents/skills/)', 'Local (.agents/skills/ in workspace)'],
       {
         placeHolder: 'Install location:',
         ignoreFocusOut: true,

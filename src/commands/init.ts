@@ -38,7 +38,7 @@ export async function runInit(
   } else {
     // Ask for install location
     const choice = await vscode.window.showQuickPick(
-      ['Global (~/.vscode/agents/skills/)', 'Local (.agents/skills/ in workspace)'],
+      ['Global (~/.agents/skills/)', 'Local (.agents/skills/ in workspace)'],
       {
         placeHolder: 'Where should cstack install skill and agent files?',
         ignoreFocusOut: true,

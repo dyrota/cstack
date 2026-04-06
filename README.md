@@ -34,7 +34,7 @@ cd cstack
 
 # Personal install (works across all projects)
 ./setup
-# Skills → ~/.vscode/agents/skills/
+# Skills → ~/.agents/skills/
 # Agents → ~/.github/agents/
 
 # OR: Project install (run from within your project)
@@ -51,7 +51,7 @@ cd cstack
 
 # Personal install (works across all projects)
 .\setup.ps1
-# Skills → %APPDATA%\Code\User\agents\skills\
+# Skills → %USERPROFILE%\.agents\skills\
 # Agents → %USERPROFILE%\.github\agents\
 
 # OR: Project install (run from within your project)

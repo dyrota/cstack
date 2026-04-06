@@ -18,14 +18,21 @@ export function detectLegacyInstall(workspaceRoot: string): LegacyInstall[] {
   const found: LegacyInstall[] = [];
   const home = os.homedir();
 
-  // Global locations used by v0.1 setup script
-  const globalSkills = path.join(home, '.vscode', 'agents', 'skills');
+  // Global locations used by v0.1 setup script (wrote to ~/.vscode/agents/skills/ — now corrected to ~/.agents/skills/)
+  const globalSkillsLegacy = path.join(home, '.vscode', 'agents', 'skills');
+  const globalSkillsNew = path.join(home, '.agents', 'skills');
   const globalAgents = path.join(home, '.github', 'agents');
 
-  if (hasCstackSkills(globalSkills)) {
+  if (hasCstackSkills(globalSkillsLegacy)) {
     found.push({
       type: 'global',
-      skillsPath: globalSkills,
+      skillsPath: globalSkillsLegacy,
+      agentsPath: globalAgents,
+    });
+  } else if (hasCstackSkills(globalSkillsNew)) {
+    found.push({
+      type: 'global',
+      skillsPath: globalSkillsNew,
       agentsPath: globalAgents,
     });
   }
