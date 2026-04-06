@@ -63,21 +63,32 @@ mkdir -p "$AGENTS_DIR"
 mkdir -p "$PROMPTS_DIR"
 
 # Copy skills (each skill is a directory with SKILL.md)
+# Skills live in assets/skills/ (v1.1+), fall back to skills/ (v0.1 layout)
+SKILLS_SRC="$CSTACK_DIR/assets/skills"
+[ -d "$SKILLS_SRC" ] || SKILLS_SRC="$CSTACK_DIR/skills"
+
 echo "→ Copying skills..."
-for skill_dir in "$CSTACK_DIR/skills"/*/; do
+for skill_dir in "$SKILLS_SRC"/*/; do
   skill_name="$(basename "$skill_dir")"
   mkdir -p "$SKILLS_DIR/$skill_name"
   cp -r "$skill_dir"* "$SKILLS_DIR/$skill_name/"
 done
 
 # Copy agents
+# Agents live in assets/agents/ (v1.1+), fall back to agents/ (v0.1 layout)
+AGENTS_SRC="$CSTACK_DIR/assets/agents"
+[ -d "$AGENTS_SRC" ] || AGENTS_SRC="$CSTACK_DIR/agents"
+
 echo "→ Copying agents..."
-cp -r "$CSTACK_DIR/agents/"*.agent.md "$AGENTS_DIR/"
+cp -r "$AGENTS_SRC/"*.agent.md "$AGENTS_DIR/"
 
 # Copy prompts (if any exist)
-if [ -d "$CSTACK_DIR/prompts" ] && [ "$(ls -A "$CSTACK_DIR/prompts" 2>/dev/null)" ]; then
+PROMPTS_SRC="$CSTACK_DIR/assets/prompts"
+[ -d "$PROMPTS_SRC" ] || PROMPTS_SRC="$CSTACK_DIR/prompts"
+
+if [ -d "$PROMPTS_SRC" ] && [ "$(ls -A "$PROMPTS_SRC" 2>/dev/null)" ]; then
   echo "→ Copying prompts..."
-  cp -r "$CSTACK_DIR/prompts/"* "$PROMPTS_DIR/"
+  cp -r "$PROMPTS_SRC/"* "$PROMPTS_DIR/"
 fi
 
 # Optionally append cstack block to copilot-instructions.md

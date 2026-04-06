@@ -1,3 +1,10 @@
 PLAN.md
 *.log
 .DS_Store
+
+# Extension build output
+dist/
+node_modules/
+
+# cstack runtime files
+.cstack/runtime/
