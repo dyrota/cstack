@@ -68,7 +68,6 @@ cd cstack
 | | Extension | Script install |
 |---|---|---|
 | Skills & agents | ✅ | ✅ |
-| Swarm orchestration | ✅ | ❌ |
 | Status bar + Doctor | ✅ | ❌ |
 | Auto-install on activation | ✅ | ❌ |
 | No build step required | ❌ | ✅ |
@@ -97,8 +96,6 @@ cd cstack
                          /c:retro for weekly review
                      /c:document to sync docs after ship
 ```
-
-Use `/skill` to run a phase. Use `@agent` to work with a persona.
 
 ## Agents
 

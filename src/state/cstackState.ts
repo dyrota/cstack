@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { CstackState, SwarmSession, InstallState } from '../types';
+import { CstackState, InstallState } from '../types';
 import { EXTENSION_VERSION } from '../constants';
 
 const STATE_KEY = 'cstackState';
@@ -10,7 +10,6 @@ const DEFAULT_STATE: CstackState = {
     agentsPath: null,
     version: null,
   },
-  swarm: null,
 };
 
 export class StateManager {
@@ -34,26 +33,5 @@ export class StateManager {
       ...state,
       install: { ...state.install, ...install, version: EXTENSION_VERSION },
     });
-  }
-
-  async setSwarm(swarm: SwarmSession | null): Promise<void> {
-    const state = this.get();
-    await this.set({ ...state, swarm });
-  }
-
-  async updateSwarm(updates: Partial<SwarmSession>): Promise<void> {
-    const state = this.get();
-    if (!state.swarm) return;
-    await this.set({ ...state, swarm: { ...state.swarm, ...updates } });
-  }
-
-  async clearSwarm(): Promise<void> {
-    await this.setSwarm(null);
-  }
-
-  hasIncompleteSwarm(): boolean {
-    const state = this.get();
-    if (!state.swarm) return false;
-    return !['complete', 'failed'].includes(state.swarm.phase);
   }
 }

@@ -47,17 +47,6 @@ export async function runDoctor(stateManager: StateManager): Promise<void> {
       pass: hasCstackDir,
       detail: hasCstackDir ? 'Present' : 'Missing — run cstack: Initialize Workspace',
     });
-
-    // swarm.yaml valid if present
-    const swarmYaml = path.join(workspaceRoot, '.cstack', 'swarm.yaml');
-    if (fs.existsSync(swarmYaml)) {
-      const valid = validateSwarmYaml(swarmYaml);
-      checks.push({
-        name: '.cstack/swarm.yaml',
-        pass: valid,
-        detail: valid ? 'Valid' : 'Invalid — check schema errors in the editor',
-      });
-    }
   }
 
   // chat.agent.enabled setting
@@ -88,22 +77,4 @@ function meetsMinVersion(current: string, min: string): boolean {
   const [mMaj, mMin] = parse(min);
   if (cMaj !== mMaj) return cMaj > mMaj;
   return cMin >= mMin;
-}
-
-function validateSwarmYaml(filePath: string): boolean {
-  try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    // Basic structural validation without a YAML parser dependency
-    const validKeys = ['models', 'limits', 'install'];
-    const lines = content.split('\n').filter((l) => !l.trim().startsWith('#') && l.trim());
-    for (const line of lines) {
-      const topKey = line.match(/^(\w+):/)?.[1];
-      if (topKey && !validKeys.includes(topKey)) {
-        return false;
-      }
-    }
-    return true;
-  } catch {
-    return false;
-  }
 }
