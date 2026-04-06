@@ -2,7 +2,29 @@
 
 A skill pack that turns GitHub Copilot into a virtual engineering team. Opinionated slash commands for every phase of a sprint — plan, review, test, debug, and ship — built on VS Code's [Agent Skills](https://agentskills.io) open standard.
 
-## Quick Start
+## Installation
+
+### Option 1: VS Code Extension (recommended)
+
+The extension bundles everything and auto-installs skills on activation.
+
+**Install from VSIX (local build):**
+
+```bash
+git clone --depth 1 https://github.com/dyrota/cstack.git
+cd cstack
+npm install
+npm run package        # produces cstack-<version>.vsix
+code --install-extension cstack-*.vsix
+```
+
+Once installed, open VS Code — skills and agents are available immediately. Use `cstack: Doctor` from the Command Palette to verify.
+
+> A Marketplace release is planned. Until then, install from VSIX.
+
+### Option 2: Script Install (no extension)
+
+Copies skills and agents directly into VS Code's discovery paths without installing the extension. Useful if you just want the slash commands without the extension overhead.
 
 **macOS / Linux**
 
@@ -40,6 +62,16 @@ cd cstack
 
 > **Note (Windows):** If you get an execution policy error, run:
 > `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+
+### What's the difference?
+
+| | Extension | Script install |
+|---|---|---|
+| Skills & agents | ✅ | ✅ |
+| Swarm orchestration | ✅ | ❌ |
+| Status bar + Doctor | ✅ | ❌ |
+| Auto-install on activation | ✅ | ❌ |
+| No build step required | ❌ | ✅ |
 
 ## Skills
 

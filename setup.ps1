@@ -54,8 +54,12 @@ New-Item -ItemType Directory -Force -Path $AgentsDir  | Out-Null
 New-Item -ItemType Directory -Force -Path $PromptsDir | Out-Null
 
 # Copy skills (each skill is a directory with SKILL.md)
+# Skills live in assets\skills\ (v1.1+), fall back to skills\ (v0.1 layout)
+$SkillsSrc = "$CstackDir\assets\skills"
+if (-not (Test-Path $SkillsSrc)) { $SkillsSrc = "$CstackDir\skills" }
+
 Write-Host "→ Copying skills..."
-Get-ChildItem -Path "$CstackDir\skills" -Directory | ForEach-Object {
+Get-ChildItem -Path $SkillsSrc -Directory | ForEach-Object {
     $SkillName = $_.Name
     $Dest = "$SkillsDir\$SkillName"
     New-Item -ItemType Directory -Force -Path $Dest | Out-Null
@@ -63,11 +67,16 @@ Get-ChildItem -Path "$CstackDir\skills" -Directory | ForEach-Object {
 }
 
 # Copy agents
+# Agents live in assets\agents\ (v1.1+), fall back to agents\ (v0.1 layout)
+$AgentsSrc = "$CstackDir\assets\agents"
+if (-not (Test-Path $AgentsSrc)) { $AgentsSrc = "$CstackDir\agents" }
+
 Write-Host "→ Copying agents..."
-Copy-Item -Path "$CstackDir\agents\*.agent.md" -Destination $AgentsDir -Force
+Copy-Item -Path "$AgentsSrc\*.agent.md" -Destination $AgentsDir -Force
 
 # Copy prompts (if any exist)
-$PromptsSource = "$CstackDir\prompts"
+$PromptsSource = "$CstackDir\assets\prompts"
+if (-not (Test-Path $PromptsSource)) { $PromptsSource = "$CstackDir\prompts" }
 if ((Test-Path $PromptsSource) -and (Get-ChildItem $PromptsSource)) {
     Write-Host "→ Copying prompts..."
     Copy-Item -Path "$PromptsSource\*" -Destination $PromptsDir -Recurse -Force
