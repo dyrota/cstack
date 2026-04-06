@@ -18,6 +18,7 @@ export function detectLegacyInstall(workspaceRoot: string): LegacyInstall[] {
   const found: LegacyInstall[] = [];
   const home = os.homedir();
 
+  // TODO: remove legacy path detection once migration is no longer needed (currently Chase is the only user)
   // Global locations used by v0.1 setup script (wrote to ~/.vscode/agents/skills/ — now corrected to ~/.agents/skills/)
   const globalSkillsLegacy = path.join(home, '.vscode', 'agents', 'skills');
   const globalSkillsNew = path.join(home, '.agents', 'skills');
