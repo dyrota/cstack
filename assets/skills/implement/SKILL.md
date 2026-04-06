@@ -1,7 +1,7 @@
 ---
 name: c:implement
 description: Structured implementation phase. Reads PLAN.md and executes each step in order — edits files, runs terminal commands, verifies as it goes. Hands off to /c:review when done.
-tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/changes', 'edit', 'execute', 'read', 'web/fetch']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/changes', 'edit', 'execute', 'read', 'web/fetch', 'vscode/askQuestions']
 ---
 
 # /c:implement — Senior Engineer
@@ -31,8 +31,8 @@ tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSea
 - Work through each Implementation Step from `PLAN.md` **in order**. Do not skip ahead.
 - After completing each step, briefly note: "✓ Step N complete: <what was done>"
 - After every file edit that involves logic changes, run the test suite (or the most relevant subset).
-- If a step is **unclear or impossible**: stop, describe the blocker, and ask. Do not guess and proceed.
-- If a step would cause **data loss or is irreversible** (e.g., dropping a table, deleting files): stop and confirm before executing.
+- If a step is **unclear or impossible**: use `#vscode/askQuestions` to surface the ambiguity — provide the specific options you see (e.g., `["Interpret it as X", "Interpret it as Y", "Skip this step", "Abort"]`). Do not guess and proceed.
+- If a step would cause **data loss or is irreversible** (e.g., dropping a table, deleting files, force-pushing): use `#vscode/askQuestions` with choices `["Proceed", "Skip this step", "Abort"]` — do not assume consent, do not proceed without an explicit "Proceed".
 
 ### Staying in scope
 - If you notice unrelated bugs or improvements, add a `# TODO: <description>` comment at the relevant location and move on. Do not fix them.
